@@ -123,8 +123,8 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
         <section className="py-24 bg-white relative">
             {/* Thank You Popup */}
             <div className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] transition-all duration-500 ${showPopup ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
-                <div className="bg-[#001F3F] text-white px-8 py-4 rounded-2xl shadow-2xl border border-green-500/30 flex items-center gap-4">
-                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-[#001F3F]">
+                <div className="bg-[#5E6470] text-white px-8 py-4 rounded-2xl shadow-2xl border border-green-500/30 flex items-center gap-4">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-[#5E6470]">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
@@ -138,7 +138,7 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                     {/* Sidebar Filters */}
                     <div className="w-full lg:w-1/4">
                         <div className="sticky top-32">
-                            <h3 className="text-[#001F3F] font-black text-xs uppercase tracking-[0.2em] mb-8">Categories</h3>
+                            <h3 className="text-[#5E6470] font-black text-xs uppercase tracking-[0.2em] mb-8">Categories</h3>
                             <div className="space-y-2">
                                 {categories.map((cat) => {
                                     const Icon = cat.icon;
@@ -148,11 +148,11 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                                             onClick={() => setActiveCategory(cat.name)}
                                             className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl font-bold transition-all ${
                                                 activeCategory === cat.name 
-                                                ? 'bg-[#001F3F] text-white shadow-xl shadow-[#001F3F]/10' 
-                                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#001F3F]'
+                                                ? 'bg-[#5E6470] text-white shadow-xl shadow-[#5E6470]/10' 
+                                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#5E6470]'
                                             }`}
                                         >
-                                            <Icon className={`text-lg ${activeCategory === cat.name ? 'text-[#14C8D4]' : 'text-gray-400'}`} />
+                                            <Icon className={`text-lg ${activeCategory === cat.name ? 'text-[#1DB5A5]' : 'text-gray-400'}`} />
                                             {cat.name}
                                         </button>
                                     );
@@ -161,11 +161,11 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
 
                             {/* Help Box */}
                             <div className="mt-12 p-8 bg-[#f8fafc] rounded-[2rem] border border-gray-100">
-                                <h4 className="text-[#001F3F] font-black mb-3">Still stuck?</h4>
+                                <h4 className="text-[#5E6470] font-black mb-3">Still stuck?</h4>
                                 <p className="text-gray-500 text-sm font-medium leading-relaxed mb-6">Our support heroes are ready to assist you personally.</p>
                                 <a 
                                     href="/contact" 
-                                    className="block text-center py-4 bg-[#14C8D4] text-[#001F3F] rounded-xl font-black text-sm hover:shadow-lg transition-all active:scale-95"
+                                    className="block text-center py-4 bg-[#1DB5A5] text-[#5E6470] rounded-xl font-black text-sm hover:shadow-lg transition-all active:scale-95"
                                 >
                                     Get In Touch
                                 </a>
@@ -176,7 +176,7 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                     {/* FAQ Content */}
                     <div className="w-full lg:w-3/4">
                         <div className="mb-10 flex items-center justify-between">
-                            <h2 className="text-3xl font-black text-[#001F3F]">
+                            <h2 className="text-3xl font-black text-[#5E6470]">
                                 {activeCategory === 'All Categories' ? 'Frequently Asked Questions' : activeCategory}
                             </h2>
                             <span className="text-gray-400 font-bold text-sm uppercase tracking-widest bg-gray-50 px-4 py-1.5 rounded-full border border-gray-100">
@@ -191,7 +191,7 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                                         key={index}
                                         className={`group border rounded-[2rem] transition-all duration-500 ${
                                             openIndex === index 
-                                            ? 'border-[#14C8D4] bg-[#fcfdfe] shadow-[0_20px_50px_rgba(20,200,212,0.1)]' 
+                                            ? 'border-[#1DB5A5] bg-[#fcfdfe] shadow-[0_20px_50px_rgba(20,200,212,0.1)]' 
                                             : 'border-gray-100 bg-white hover:border-gray-200'
                                         }`}
                                     >
@@ -199,10 +199,10 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                                             onClick={() => setOpenIndex(openIndex === index ? null : index)}
                                             className="w-full flex items-center justify-between p-8 text-left outline-none"
                                         >
-                                            <span className={`text-xl font-black transition-colors ${openIndex === index ? 'text-[#001F3F]' : 'text-gray-600 group-hover:text-[#001F3F]'}`}>
+                                            <span className={`text-xl font-black transition-colors ${openIndex === index ? 'text-[#5E6470]' : 'text-gray-600 group-hover:text-[#5E6470]'}`}>
                                                 {faq.question}
                                             </span>
-                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${openIndex === index ? 'bg-[#001F3F] text-[#14C8D4] rotate-180' : 'bg-gray-50 text-gray-400'}`}>
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${openIndex === index ? 'bg-[#5E6470] text-[#1DB5A5] rotate-180' : 'bg-gray-50 text-gray-400'}`}>
                                                 {openIndex === index ? <FaMinus /> : <FaPlus />}
                                             </div>
                                         </button>
@@ -216,7 +216,7 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                                                     <div className="mt-8 flex items-center gap-6">
                                                         <span className="text-xs font-black text-gray-400 uppercase tracking-widest">Was this helpful?</span>
                                                         {helpfulFeedback[index] ? (
-                                                            <span className="text-xs font-black text-[#14C8D4] uppercase tracking-widest flex items-center gap-2">
+                                                            <span className="text-xs font-black text-[#1DB5A5] uppercase tracking-widest flex items-center gap-2">
                                                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                                                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                                                                     <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
@@ -227,12 +227,12 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                                                             <div className="flex items-center gap-4">
                                                                 <button 
                                                                     onClick={() => handleHelpful(index)}
-                                                                    className="text-xs font-black text-[#001F3F] hover:text-[#14C8D4] transition-colors"
+                                                                    className="text-xs font-black text-[#5E6470] hover:text-[#1DB5A5] transition-colors"
                                                                 >
                                                                     YES
                                                                 </button>
                                                                 <span className="text-gray-200">/</span>
-                                                                <button className="text-xs font-black text-[#001F3F] hover:text-red-500 transition-colors">NO</button>
+                                                                <button className="text-xs font-black text-[#5E6470] hover:text-red-500 transition-colors">NO</button>
                                                             </div>
                                                         )}
                                                     </div>
@@ -247,7 +247,7 @@ const FAQListing = ({ searchQuery }: FAQListingProps) => {
                                 <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
                                     <FaSearch className="text-gray-300 text-2xl" />
                                 </div>
-                                <h3 className="text-xl font-black text-[#001F3F] mb-2">No matching questions found</h3>
+                                <h3 className="text-xl font-black text-[#5E6470] mb-2">No matching questions found</h3>
                                 <p className="text-gray-500 font-medium">Try searching for something else or browse categories.</p>
                             </div>
                         )}

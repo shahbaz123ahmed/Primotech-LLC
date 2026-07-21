@@ -1,22 +1,15 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-
-interface Product {
-    _id: string;
-    name: string;
-    slug: string;
-    category: string;
-    images: string[];
-}
+import { type Product } from '@/data/catalog';
 
 const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] }) => {
-    const [products, setProducts] = useState<Product[]>(
-        initialProducts.length > 0 
-            ? [...initialProducts, ...initialProducts, ...initialProducts] 
+    // Triple the list for seamless infinite scroll animation
+    const [products] = useState<Product[]>(
+        initialProducts.length > 0
+            ? [...initialProducts, ...initialProducts, ...initialProducts]
             : []
     );
-    const [loading, setLoading] = useState(initialProducts.length === 0);
     const scrollRef = useRef<HTMLDivElement>(null);
     const isPausedRef = useRef(false);
 
@@ -29,29 +22,6 @@ const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] 
         'from-cyan-100/50 to-cyan-200/50',
     ];
 
-    useEffect(() => {
-        const fetchLatest = async () => {
-            if (initialProducts.length > 0 && products.length > 0) return;
-            
-            try {
-                const response = await fetch('/api/products');
-                const data = await response.json();
-                if (data.success && data.data && data.data.length > 0) {
-                    const validProducts = data.data.filter((p: Product) => p.name && p.images?.length > 0);
-                    setProducts([...validProducts, ...validProducts, ...validProducts]);
-                }
-            } catch (error) {
-                console.error('Error fetching latest products:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        
-        if (initialProducts.length === 0) {
-            fetchLatest();
-        }
-    }, [initialProducts.length, products.length]);
-
     // Auto-scroll logic
     useEffect(() => {
         if (!products.length || !scrollRef.current) return;
@@ -62,7 +32,7 @@ const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] 
 
         const scroll = () => {
             if (!isPausedRef.current) {
-                scrollPos += 0.8; // Speed of scroll
+                scrollPos += 0.8;
                 if (scrollPos >= scrollContainer.scrollWidth / 3) {
                     scrollPos = 0;
                 }
@@ -77,16 +47,16 @@ const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] 
         return () => cancelAnimationFrame(animationFrameId);
     }, [products]);
 
-    if (loading || products.length === 0) return null;
+    if (products.length === 0) return null;
 
     return (
         <section className="py-24 bg-white overflow-hidden">
             <div className="max-w-[100vw] mx-auto">
                 <div className="text-center mb-16 px-6">
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-[#001F3F] mb-6 tracking-tight">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-[#5E6470] mb-6 tracking-tight">
                         The latest must-have products
                     </h2>
-                    <div className="w-24 h-1.5 bg-[#14C8D4] mx-auto rounded-full shadow-[0_0_10px_rgba(20,200,212,0.3)]"></div>
+                    <div className="w-24 h-1.5 bg-[#1DB5A5] mx-auto rounded-full shadow-[0_0_10px_rgba(20,200,212,0.3)]"></div>
                 </div>
 
                 {/* Carousel Container */}
@@ -98,8 +68,8 @@ const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] 
                 >
                     {products.map((product, idx) => (
                         <div 
-                            key={`${product._id}-${idx}`}
-                            onClick={() => window.location.href = `/products/${product.category}/${product.slug}`}
+                            key={`${product.id}-${idx}`}
+                            onClick={() => window.location.href = `/products/${product.categorySlug}/${product.subcategorySlug}/${product.slug}`}
                             className={`flex-shrink-0 w-[300px] h-[400px] rounded-[2.5rem] bg-gradient-to-b ${gradients[idx % gradients.length]} p-6 flex flex-col justify-between shadow-xl shadow-black/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 group`}
                         >
                             {/* Inner Image Container */}
@@ -122,7 +92,7 @@ const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] 
                                 <p className="text-rose-600 font-black text-[10px] uppercase tracking-[0.2em]">
                                     {product.category}
                                 </p>
-                                <h3 className="text-xl font-black text-[#001F3F] leading-tight whitespace-normal line-clamp-2">
+                                <h3 className="text-xl font-black text-[#5E6470] leading-tight whitespace-normal line-clamp-2">
                                     {product.name}
                                 </h3>
                                 <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest truncate">
@@ -137,7 +107,7 @@ const LatestProducts = ({ initialProducts = [] }: { initialProducts?: Product[] 
                 <div className="mt-20 text-center">
                     <button 
                         onClick={() => window.location.href = '/products'}
-                        className="group relative inline-flex items-center gap-3 px-12 py-5 bg-[#001F3F] text-white rounded-full font-black text-lg hover:bg-[#14C8D4] transition-all duration-300 shadow-[0_20px_40px_rgba(0,31,63,0.2)] hover:shadow-[0_20px_40px_rgba(20,200,212,0.3)] hover:-translate-y-1 active:scale-95"
+                        className="group relative inline-flex items-center gap-3 px-12 py-5 bg-[#5E6470] text-white rounded-full font-black text-lg hover:bg-[#1DB5A5] transition-all duration-300 shadow-[0_20px_40px_rgba(0,31,63,0.2)] hover:shadow-[0_20px_40px_rgba(20,200,212,0.3)] hover:-translate-y-1 active:scale-95"
                     >
                         <span>Know More</span>
                         <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

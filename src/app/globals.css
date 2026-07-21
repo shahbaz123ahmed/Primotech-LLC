@@ -1,16 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #001F3F;
-  --color-secondary: #3B7597;
+  --color-primary: #5E6470;
+  --color-secondary: #78828D;
+  
+  /* Global Font Definition */
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  /* Global Heading Size Reductions */
+  --text-7xl: 3.5rem; 
+  --text-7xl--line-height: 1.1;
+  --text-6xl: 2.75rem; 
+  --text-6xl--line-height: 1.1;
+  --text-5xl: 2.25rem; 
+  --text-5xl--line-height: 1.2;
+  --text-4xl: 1.75rem; 
+  --text-4xl--line-height: 1.2;
+  --text-3xl: 1.5rem;
+  --text-3xl--line-height: 1.2;
 }
 
 :root {
-  --primary: #001F3F;
-  --secondary: #3B7597;
-  --navy: #001F3F;
+  --primary: #5E6470;
+  --secondary: #78828D;
+  --navy: #5E6470;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-outfit), sans-serif;
 }

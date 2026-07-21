@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { FaChevronRight } from 'react-icons/fa';
+import { getAllCategories, getSubcategoriesByCategory, getLatestProducts } from '@/lib/catalog';
 
 interface Technology {
     title: string;
@@ -11,7 +12,7 @@ interface Technology {
 }
 
 interface CategoryData {
-    _id: string;
+    id: string;
     name: string;
     slug: string;
     description1: string;
@@ -24,7 +25,7 @@ interface CategoryData {
 }
 
 interface SubCategoryData {
-    _id: string;
+    id: string;
     name: string;
     slug: string;
     parentCategory: string;
@@ -33,10 +34,12 @@ interface SubCategoryData {
 }
 
 interface ProductData {
-    _id: string;
+    id: string;
     name: string;
     slug: string;
     category: string;
+    categorySlug: string;
+    subcategorySlug: string;
     description: string;
     images: string[];
     status: 'published' | 'draft';
@@ -77,11 +80,14 @@ const Navbar = () => {
     const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
     const [mobileMenuLevel, setMobileMenuLevel] = useState<'main' | 'submenu' | 'products'>('main');
     const [mobileMenuHistory, setMobileMenuHistory] = useState<MobileHistoryItem[]>([]);
-    const [categories, setCategories] = useState<CategoryData[]>([]);
-    const [products, setProducts] = useState<ProductData[]>([]);
-    const [subcategories, setSubcategories] = useState<SubCategoryData[]>([]);
-    const [loadingMenuData, setLoadingMenuData] = useState(true);
-    const [menuDataError, setMenuDataError] = useState(false);
+    const [categories] = useState<CategoryData[]>(() => getAllCategories() as CategoryData[]);
+    const [products] = useState<ProductData[]>(() => getLatestProducts(20) as ProductData[]);
+    const [subcategories] = useState<SubCategoryData[]>(() => {
+        const cats = getAllCategories();
+        return cats.flatMap(cat => getSubcategoriesByCategory(cat.slug)) as SubCategoryData[];
+    });
+    const [loadingMenuData] = useState(false);
+    const [menuDataError] = useState(false);
     const [activeProductCategorySlug, setActiveProductCategorySlug] = useState<string | null>(null);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -116,59 +122,7 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        let isMounted = true;
-
-        const fetchMenuData = async () => {
-            try {
-                setLoadingMenuData(true);
-                setMenuDataError(false);
-
-                const [categoriesResponse, productsResponse, subcategoriesResponse] = await Promise.all([
-                    fetch('/api/categories'),
-                    fetch('/api/products'),
-                    fetch('/api/subcategories'),
-                ]);
-
-                const [categoriesData, productsData, subcategoriesData] = await Promise.all([
-                    categoriesResponse.json(),
-                    productsResponse.json(),
-                    subcategoriesResponse.json(),
-                ]);
-
-                if (!isMounted) {
-                    return;
-                }
-
-                if (categoriesData.success) {
-                    setCategories(categoriesData.data ?? []);
-                }
-
-                if (productsData.success) {
-                    setProducts(productsData.data ?? []);
-                }
-
-                if (subcategoriesData.success) {
-                    setSubcategories(subcategoriesData.data ?? []);
-                }
-            } catch (error) {
-                console.error('Error loading navigation data:', error);
-                if (isMounted) {
-                    setMenuDataError(true);
-                }
-            } finally {
-                if (isMounted) {
-                    setLoadingMenuData(false);
-                }
-            }
-        };
-
-        fetchMenuData();
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
+    // Data is now loaded statically from the catalog — no useEffect fetch needed
 
     const visibleCategories = categories.filter((category) => category.status === 'published');
     const visibleProducts = products.filter((product) => product.status === 'published');
@@ -237,17 +191,7 @@ const Navbar = () => {
         }, delay);
     }, [clearDropdownTimeout]);
 
-    // Stable hover handlers
     const handleMouseEnter = useCallback((index: number) => {
-        const now = Date.now();
-        const timeSinceLastInteraction = now - lastInteractionTimeRef.current;
-
-        if (timeSinceLastInteraction < 50) {
-            return;
-        }
-
-        lastInteractionTimeRef.current = now;
-        isHoveringRef.current = true;
         clearDropdownTimeout();
         setActiveDropdown(index);
 
@@ -257,29 +201,9 @@ const Navbar = () => {
     }, [clearDropdownTimeout, navItems, productMenuItems]);
 
     const handleMouseLeave = useCallback(() => {
-        isHoveringRef.current = false;
-
         setDropdownTimeout(() => {
-            if (!isHoveringRef.current) {
-                setActiveDropdown(null);
-            }
-        }, 300);
-    }, [setDropdownTimeout]);
-
-    const handleDropdownMouseEnter = useCallback(() => {
-        isHoveringRef.current = true;
-        lastInteractionTimeRef.current = Date.now();
-        clearDropdownTimeout();
-    }, [clearDropdownTimeout]);
-
-    const handleDropdownMouseLeave = useCallback(() => {
-        isHoveringRef.current = false;
-
-        setDropdownTimeout(() => {
-            if (!isHoveringRef.current) {
-                setActiveDropdown(null);
-            }
-        }, 400);
+            setActiveDropdown(null);
+        }, 200); // 200ms delay prevents flickering when moving to dropdown
     }, [setDropdownTimeout]);
 
     // Mobile menu handlers
@@ -337,9 +261,9 @@ const Navbar = () => {
     return (
         <>
             {/* Top Announcement Bar - Two Tone Design */}
-            <div className="fixed top-0 left-0 right-0 z-[101] flex items-stretch h-[36px] overflow-hidden">
+            <div className={`fixed top-0 left-0 right-0 z-[101] flex items-stretch h-[36px] overflow-hidden transition-transform duration-300 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
                 {/* Left Side: Deep Blue Branding */}
-                <div className="bg-[#001F3F] flex-grow flex items-center relative overflow-hidden">
+                <div className="bg-[#5E6470] flex-grow flex items-center relative overflow-hidden">
                     <div className="flex items-center gap-12 whitespace-nowrap animate-marquee-rtl py-2">
                         {/* Group 1 */}
                         <div className="flex items-center gap-12">
@@ -347,27 +271,27 @@ const Navbar = () => {
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 #1 CCTV Supplier in Middle East
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 #1 Uniarch Products
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 UAE's Most Trusted Security Partner
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 24/7 Advanced Surveillance Technology
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 Authorized Hikvision & Uniarch Dealer
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                         </div>
                         {/* Group 2 (Duplicate for seamless loop) */}
                         <div className="flex items-center gap-12">
@@ -375,43 +299,43 @@ const Navbar = () => {
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 #1 CCTV Supplier in Middle East
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 #1 Uniarch Products
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 UAE's Most Trusted Security Partner
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 24/7 Advanced Surveillance Technology
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                             <span className="text-white text-sm font-semibold tracking-wide flex items-center gap-2.5">
                                 <Image src="/greentick.png" alt="tick" width={18} height={18} className="object-contain shrink-0" style={{ height: 'auto' }} />
                                 Authorized Hikvision & Uniarch Dealer
                             </span>
-                            <span className="text-[#14C8D4]/30 font-bold">/</span>
+                            <span className="text-[#1DB5A5]/30 font-bold">/</span>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Side: Yellow Contact Info */}
-                <div className="bg-[#FFD700] flex items-center px-4 md:px-8 relative shrink-0 z-20 h-full ml-[-12px] [clip-path:polygon(12px_0,100%_0,100%_100%,0%_100%)]">
+                {/* Right Side: Contact Info */}
+                <div className="bg-[#1DB5A5] flex items-center px-6 md:px-8 relative shrink-0 z-20 h-full ml-[-12px] [clip-path:polygon(12px_0,100%_0,100%_100%,0%_100%)]">
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-6 relative z-20 whitespace-nowrap pl-2">
-                        <a href="mailto:sales@primotech-llc.com" className="flex text-[#001F3F] text-[8px] md:text-[13px] font-black hover:text-black transition-colors duration-200 items-center gap-1 md:gap-2 leading-none md:leading-normal">
+                        <a href="mailto:sales@primotech-llc.com" className="flex text-white text-[8px] md:text-[13px] font-bold hover:text-white/80 transition-colors duration-200 items-center gap-1 md:gap-2 leading-none md:leading-normal">
                             <svg className="w-2.5 h-2.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                             sales@primotech-llc.com
                         </a>
-                        <span className="hidden lg:block text-[#001F3F]/20 font-black">/</span>
+                        <span className="hidden lg:block text-white/30 font-bold">|</span>
 
-                        <a href="tel:+971528796664" className="flex text-[#001F3F] text-[9px] md:text-[13px] font-black hover:text-black transition-colors duration-200 items-center gap-1 md:gap-2 leading-none md:leading-normal">
+                        <a href="tel:+971528796664" className="flex text-white text-[9px] md:text-[13px] font-bold hover:text-white/80 transition-colors duration-200 items-center gap-1 md:gap-2 leading-none md:leading-normal">
                             <svg className="w-2.5 h-2.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
@@ -422,67 +346,65 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navbar */}
-            <nav className={`hidden md:flex items-center justify-between w-full px-8 lg:px-20 py-4 transition-all duration-300 fixed left-0 right-0 z-[100] mt-[36px] ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-3' : 'bg-white shadow-sm'}`}>
-                {/* Logo - Left Side */}
-                <div 
-                    className="flex items-center space-x-3 flex-shrink-0 cursor-pointer group" 
-                    onClick={() => window.location.href = '/'}
-                >
-                    <div className="relative w-48 h-12 transition-transform duration-300 group-hover:scale-105">
-                        <Image 
-                            src="/logo.png" 
-                            alt="Primo Tech Logo" 
-                            fill 
-                            sizes="(max-width: 768px) 144px, 192px"
-                            className="object-contain"
-                            priority
-                        />
+            <div className={`hidden md:flex fixed z-[100] left-1/2 -translate-x-1/2 transition-all duration-300 w-[96%] max-w-[1500px] rounded-full bg-white shadow-[0_15px_40px_rgba(0,0,0,0.1)] border border-gray-100/50 ${isScrolled ? 'top-0' : 'top-[68px]'}`}>
+                <nav className="flex items-center justify-between w-full px-8 py-5">
+                    {/* Logo - Left Side */}
+                    <div
+                        className="flex items-center space-x-3 flex-shrink-0 cursor-pointer group"
+                        onClick={() => window.location.href = '/'}
+                    >
+                        <div className="relative w-40 h-10 transition-transform duration-300 group-hover:scale-105">
+                            <Image
+                                src="/logo.png"
+                                alt="Primo Tech Logo"
+                                fill
+                                sizes="(max-width: 768px) 144px, 192px"
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
                     </div>
-                </div>
 
-                {/* Navigation Items - Centered */}
-                <div className="flex items-center space-x-10 lg:space-x-14">
-                    {navItems.map((item, index) => (
-                        <div
-                            key={index}
-                            className="relative"
-                            onMouseEnter={() => handleMouseEnter(index)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <a
-                                href={item.href}
-                                className={`text-[16px] font-bold transition-all duration-300 py-4 flex items-center gap-1.5 ${activeDropdown === index ? 'text-[#14C8D4]' : 'text-[#001F3F] hover:text-[#14C8D4]'
-                                    }`}
-                                onClick={(e) => {
-                                    if (item.submenu) e.preventDefault();
-                                }}
+                    {/* Navigation Items - Centered */}
+                    <div className="flex items-center space-x-10">
+                        {navItems.map((item, index) => (
+                            <div
+                                key={index}
+                                onMouseEnter={() => handleMouseEnter(index)}
+                                onMouseLeave={handleMouseLeave}
                             >
-                                {item.label}
-                                {item.submenu && (
-                                    <svg className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === index ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                )}
-                                <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-[#14C8D4] transition-all duration-300 ${activeDropdown === index ? 'w-full' : 'group-hover:w-1/2'}`}></span>
-                            </a>
-
-                            {/* Mega Menus */}
-                            {item.submenu && activeDropdown === index && (
-                                <div
-                                    ref={dropdownRef}
-                                    className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%-10px)] ${item.label === 'Support' ? 'w-[800px]' : 'w-[1000px] lg:w-[1050px]'} rounded-[2.5rem] bg-white border border-gray-100 shadow-[0_30px_60px_rgba(0,0,0,0.15)] animate-fadeInUp z-[100] overflow-hidden before:content-[''] before:absolute before:-top-10 before:left-0 before:right-0 before:h-10 before:bg-transparent`}
-                                    onMouseEnter={handleDropdownMouseEnter}
-                                    onMouseLeave={handleDropdownMouseLeave}
+                                <a
+                                    href={item.href}
+                                    className={`relative group text-[14px] font-bold transition-all duration-300 py-3 flex items-center gap-1.5 ${activeDropdown === index ? 'text-[#1DB5A5]' : 'text-[#5E6470] hover:text-[#1DB5A5]'
+                                        }`}
+                                    onClick={(e) => {
+                                        if (item.submenu) e.preventDefault();
+                                    }}
                                 >
+                                    {item.label}
+                                    {item.submenu && (
+                                        <svg className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === index ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    )}
+                                    <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-[#1DB5A5] transition-all duration-300 ${activeDropdown === index ? 'w-full' : 'group-hover:w-1/2'}`}></span>
+                                </a>
+
+                                {/* Mega Menus */}
+                                {item.submenu && activeDropdown === index && (
+                                    <div
+                                        ref={dropdownRef}
+                                        className={`absolute top-[calc(100%+2px)] ${item.label === 'Support' ? 'left-1/2 -translate-x-1/2 w-[700px]' : 'left-0 w-[950px] lg:w-[1100px]'} max-w-[95vw] rounded-[2.5rem] bg-white border border-gray-100 shadow-[0_30px_60px_rgba(0,0,0,0.15)] animate-fadeInUp z-[100] overflow-hidden before:content-[''] before:absolute before:-top-4 before:left-0 before:right-0 before:h-4 before:bg-transparent`}
+                                    >
                                         {item.label === 'Products' ? (
                                             loadingMenuData ? (
                                                 <div className="flex min-h-[400px] items-center justify-center">
-                                                    <div className="w-12 h-12 border-4 border-[#14C8D4] border-t-transparent rounded-full animate-spin"></div>
+                                                    <div className="w-12 h-12 border-4 border-[#1DB5A5] border-t-transparent rounded-full animate-spin"></div>
                                                 </div>
                                             ) : (
-                                                <div className="flex w-full min-h-[500px] bg-white">
+                                                <div className="flex w-full bg-white">
                                                     {/* Left Sidebar - Categories */}
-                                                    <div className="w-[320px] flex-shrink-0 bg-gray-50/50 border-r border-gray-100 p-6 shadow-[inset_-20px_0_40px_rgba(0,0,0,0.01)]">
+                                                    <div className="w-[280px] flex-shrink-0 bg-gray-50/50 border-r border-gray-100 p-5 shadow-[inset_-20px_0_40px_rgba(0,0,0,0.01)]">
                                                         <h2 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6 px-2">Solutions & Categories</h2>
                                                         <div className="space-y-2">
                                                             {item.submenu.map((subItem, subIndex) => {
@@ -495,51 +417,48 @@ const Navbar = () => {
                                                                     <button
                                                                         key={subIndex}
                                                                         onMouseEnter={() => setActiveProductCategorySlug(subItem.slug)}
-                                                                        className={`w-full flex items-center justify-between p-3 rounded-[1.25rem] text-left transition-all duration-300 relative group/btn ${
-                                                                            isActive
+                                                                        className={`w-full flex items-center justify-between p-3 rounded-[1.25rem] text-left transition-all duration-300 relative group/btn ${isActive
                                                                                 ? 'bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] ring-1 ring-gray-100 z-10'
-                                                                                : 'hover:bg-white/60 text-gray-600 hover:text-[#001F3F]'
-                                                                        }`}
+                                                                                : 'hover:bg-white/60 text-gray-600 hover:text-[#5E6470]'
+                                                                            }`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
-                                                                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 overflow-hidden ${
-                                                                                isActive 
-                                                                                    ? 'bg-[#001F3F] text-white shadow-lg shadow-[#001F3F]/20' 
-                                                                                    : 'bg-white text-gray-400 group-hover/btn:text-[#14C8D4] shadow-sm'
-                                                                            }`}>
+                                                                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 overflow-hidden bg-[#1DB5A5] text-white ${isActive
+                                                                                    ? 'shadow-lg shadow-[#1DB5A5]/20'
+                                                                                    : 'shadow-sm group-hover/btn:shadow-md'
+                                                                                }`}>
                                                                                 {categoryImage ? (
-                                                                                    <img 
-                                                                                        src={categoryImage} 
-                                                                                        alt={subItem.title} 
+                                                                                    <img
+                                                                                        src={categoryImage}
+                                                                                        alt={subItem.title}
                                                                                         onError={(e) => {
                                                                                             e.currentTarget.style.display = 'none';
                                                                                             const iconEl = e.currentTarget.nextElementSibling;
                                                                                             if (iconEl) iconEl.classList.remove('hidden');
                                                                                         }}
-                                                                                        className="w-full h-full object-cover" 
+                                                                                        className="w-full h-full object-cover"
                                                                                     />
                                                                                 ) : null}
                                                                                 <i className={`fas ${subItem.icon || 'fa-camera'} text-lg ${categoryImage ? 'hidden' : ''}`} />
                                                                             </div>
                                                                             <div>
-                                                                                <span className={`block font-extrabold text-[15px] transition-colors ${isActive ? 'text-[#001F3F]' : ''}`}>{subItem.title}</span>
-                                                                                {isActive && <span className="text-xs font-bold text-[#14C8D4] mt-0.5 block">View Products</span>}
+                                                                                <span className={`block font-extrabold text-[15px] transition-colors ${isActive ? 'text-[#1DB5A5]' : ''}`}>{subItem.title}</span>
+                                                                                {isActive && <span className="text-xs font-bold text-[#1DB5A5] mt-0.5 block">View Products</span>}
                                                                             </div>
                                                                         </div>
-                                                                        <FaChevronRight className={`w-3.5 h-3.5 transition-all duration-300 ${
-                                                                            isActive 
-                                                                                ? 'text-[#14C8D4] translate-x-0 opacity-100' 
+                                                                        <FaChevronRight className={`w-3.5 h-3.5 transition-all duration-300 ${isActive
+                                                                                ? 'text-[#1DB5A5] translate-x-0 opacity-100'
                                                                                 : 'text-gray-300 -translate-x-2 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-0'
-                                                                        }`} />
+                                                                            }`} />
                                                                     </button>
                                                                 );
                                                             })}
                                                         </div>
-                                                        
-                                                        <div className="mt-8 pt-8 border-t border-gray-100/50">
+
+                                                        <div className="mt-4 pt-4 border-t border-gray-100/50">
                                                             <a
                                                                 href="/products"
-                                                                className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-[#001F3F] text-white font-black text-xs uppercase tracking-widest hover:bg-[#14C8D4] hover:text-[#001F3F] transition-all duration-300 shadow-xl shadow-[#001F3F]/10 hover:shadow-[#14C8D4]/20 group"
+                                                                className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-[#5E6470] text-white font-black text-xs uppercase tracking-widest hover:bg-[#1DB5A5] hover:text-[#5E6470] transition-all duration-300 shadow-xl shadow-[#5E6470]/10 hover:shadow-[#1DB5A5]/20 group"
                                                             >
                                                                 View All Products
                                                                 <FaChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -548,31 +467,17 @@ const Navbar = () => {
                                                     </div>
 
                                                     {/* Right Content - Product Grid */}
-                                                    <div className="flex-1 p-8 bg-white overflow-y-auto max-h-[500px]">
+                                                    <div className="flex-1 p-5 bg-white">
                                                         {activeProductCategory ? (
                                                             <div className="h-full flex flex-col">
-                                                                <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-50">
-                                                                    <div>
-                                                                        <h2 className="text-3xl font-black text-[#001F3F] mb-2">{activeProductCategory.title}</h2>
-                                                                        <p className="text-gray-500 font-medium">{activeProductCategory.description}</p>
-                                                                    </div>
-                                                                    <a
-                                                                        href={`/products/${activeProductCategory.slug}`}
-                                                                        className="group flex items-center gap-2 bg-gray-50 hover:bg-[#001F3F] text-[#001F3F] hover:text-white px-6 py-3 rounded-full font-bold text-sm transition-all duration-300"
-                                                                    >
-                                                                        View All
-                                                                        <FaChevronRight className="w-3 h-3 text-[#14C8D4] group-hover:translate-x-1 transition-transform" />
-                                                                    </a>
-                                                                </div>
-                                                                
-                                                                <div className="grid grid-cols-3 gap-6 mb-10">
+                                                                <div className="grid grid-cols-3 gap-2">
                                                                     {activeProductCategory.items.map((subcategory, sIdx) => (
                                                                         <a
                                                                             key={sIdx}
                                                                             href={`/products/${activeProductCategory.slug}/${subcategory.slug}`}
-                                                                            className="group relative bg-white border border-gray-100 rounded-[2rem] p-5 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:border-transparent block"
+                                                                            className="group relative bg-white border border-gray-100 rounded-[1.5rem] p-3 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:border-[#1DB5A5] block"
                                                                         >
-                                                                            <div className="aspect-[4/3] bg-gray-50/80 rounded-xl mb-4 flex items-center justify-center p-4 overflow-hidden transition-colors duration-500 group-hover:bg-[#f0fdfe]">
+                                                                            <div className="aspect-[4/3] bg-gray-50/80 rounded-xl mb-2.5 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:bg-[#f0fdfe]">
                                                                                 <img
                                                                                     src={subcategory.image || '/api/placeholder/400/300'}
                                                                                     alt={subcategory.name}
@@ -580,13 +485,13 @@ const Navbar = () => {
                                                                                     className="max-h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-110"
                                                                                 />
                                                                             </div>
-                                                                            <div className="px-2">
-                                                                                <h3 className="font-extrabold text-[#001F3F] text-base mb-1 group-hover:text-[#14C8D4] transition-colors">{subcategory.name}</h3>
-                                                                                <p className="text-gray-500 text-[11px] line-clamp-1 leading-relaxed mb-3">
+                                                                            <div className="px-1.5">
+                                                                                <h3 className="font-extrabold text-[#5E6470] text-sm mb-0.5 group-hover:text-[#1DB5A5] transition-colors line-clamp-1">{subcategory.name}</h3>
+                                                                                <p className="text-gray-500 text-[12px] line-clamp-1 leading-tight mb-2">
                                                                                     Explore our high-performance range of {subcategory.name} solutions designed for advanced security needs.
                                                                                 </p>
-                                                                                <div className="inline-flex items-center gap-2 text-[#14C8D4] font-black uppercase tracking-widest text-[10px] group-hover:translate-x-1 transition-transform">
-                                                                                    Explore Series <FaChevronRight className="text-[8px]" />
+                                                                                <div className="inline-flex items-center gap-1.5 text-[#1DB5A5] font-black uppercase tracking-widest text-[9px] group-hover:translate-x-1 transition-transform">
+                                                                                    Explore Series <FaChevronRight className="text-[7px]" />
                                                                                 </div>
                                                                             </div>
                                                                         </a>
@@ -617,19 +522,19 @@ const Navbar = () => {
                                                                 <div className="flex items-start gap-6 relative z-10">
                                                                     <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100/50">
                                                                         {subItem.shortTitle === 'FAQ' ? (
-                                                                            <svg className="w-8 h-8 text-[#14C8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <svg className="w-8 h-8 text-[#1DB5A5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                             </svg>
                                                                         ) : (
-                                                                            <svg className="w-8 h-8 text-[#14C8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <svg className="w-8 h-8 text-[#1DB5A5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                                                             </svg>
                                                                         )}
                                                                     </div>
                                                                     <div>
-                                                                        <h3 className="text-xl font-black text-[#001F3F] mb-3">{subItem.title}</h3>
+                                                                        <h3 className="text-xl font-black text-[#5E6470] mb-3">{subItem.title}</h3>
                                                                         <p className="text-sm text-gray-500 font-medium leading-relaxed mb-6 line-clamp-2">{subItem.description}</p>
-                                                                        <div className="inline-flex items-center gap-2 text-[#14C8D4] font-black uppercase tracking-widest text-[10px]">
+                                                                        <div className="inline-flex items-center gap-2 text-[#1DB5A5] font-black uppercase tracking-widest text-[10px]">
                                                                             Explore Resource <FaChevronRight className="text-[8px]" />
                                                                         </div>
                                                                     </div>
@@ -642,28 +547,42 @@ const Navbar = () => {
                                         )}
                                     </div>
                                 )}
-                        </div>
-                    ))}
-                </div>
+                            </div>
+                        ))}
+                    </div>
 
-                {/* Contact Us - Right Side */}
-                <a 
-                    href="/contact" 
-                    className="bg-[#001F3F] text-white px-8 py-3 rounded-full font-bold text-[16px] transition-all duration-300 hover:bg-[#14C8D4] hover:text-[#001F3F] hover:shadow-lg hover:shadow-[#14C8D4]/20 active:scale-95"
-                >
-                    Get In Touch
-                </a>
-            </nav>
+                    {/* Right Side - Hamburger Menu */}
+                    <div className="flex items-center space-x-4">
+                        {/* Get In Touch Button */}
+                        <a
+                            href="/contact"
+                            className="hidden lg:block bg-transparent text-[#5E6470] px-5 py-2 rounded-full font-bold text-[14px] transition-all duration-300 hover:text-[#1DB5A5]"
+                        >
+                            Contact Us
+                        </a>
+
+                        <button
+                            onClick={isMobileMenuOpen ? closeMobileMenu : openMobileMenu}
+                            className="w-12 h-12 bg-[#1DB5A5] hover:bg-[#1DB5A5] text-white rounded-full flex items-center justify-center transition-all duration-300 shadow-lg shadow-[#1DB5A5]/30 focus:outline-none"
+                            aria-label="Toggle menu"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </nav>
+            </div>
 
             {/* Mobile Navbar */}
-            <div className={`md:hidden w-full px-6 py-4 flex items-center justify-between fixed left-0 right-0 z-[100] mt-[36px] transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'bg-white shadow-md' : 'bg-white'}`}>
+            <div className={`md:hidden w-full px-6 py-4 flex items-center justify-between fixed left-0 right-0 z-[100] transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'top-0 bg-white shadow-md' : 'top-[36px] bg-white'}`}>
                 {/* Logo */}
                 <div className="flex items-center space-x-2 cursor-pointer" onClick={() => window.location.href = '/'}>
                     <div className="relative w-36 h-10">
-                        <Image 
-                            src="/logo.png" 
-                            alt="Primo Tech Logo" 
-                            fill 
+                        <Image
+                            src="/logo.png"
+                            alt="Primo Tech Logo"
+                            fill
                             sizes="(max-width: 768px) 144px, 192px"
                             className="object-contain"
                             priority
@@ -674,7 +593,7 @@ const Navbar = () => {
                 {/* Hamburger / Close Button */}
                 <button
                     onClick={isMobileMenuOpen ? closeMobileMenu : openMobileMenu}
-                    className="text-[#14C8D4] focus:outline-none p-2"
+                    className="text-[#1DB5A5] focus:outline-none p-2"
                     aria-label="Toggle menu"
                 >
                     {isMobileMenuOpen ? (
@@ -689,123 +608,95 @@ const Navbar = () => {
                 </button>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Sidebar Menu Overlay */}
             {isMobileMenuOpen && (
-                <div className="md:hidden fixed inset-0 bg-white z-[90] overflow-y-auto">
-                    <div className="p-6 pt-36 min-h-screen flex flex-col">
-                        {/* Go Back Section */}
-                        {mobileMenuLevel !== 'main' && (
-                            <button
-                                onClick={goBack}
-                                className="flex items-center text-[#001F3F] mb-10 font-black text-xl"
-                            >
-                                <svg className="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-                                </svg>
-                                Back
-                            </button>
-                        )}
+                <div className="fixed inset-0 z-[110] flex justify-end">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+                        onClick={closeMobileMenu}
+                    />
 
-                        {/* Menu Content */}
-                        <div className="flex-1">
-                            {mobileMenuLevel === 'main' ? (
-                                <div className="space-y-2">
-                                    {navItems.map((item, index) => (
-                                        <div key={index} className="border-b border-gray-50 last:border-0">
+                    {/* Sidebar Panel */}
+                    <div className="relative w-full max-w-sm md:max-w-md h-full bg-[#5E6470] text-white shadow-2xl animate-slideInRight overflow-y-auto">
+                        <div className="p-8 flex flex-col h-full">
+                            {/* Header */}
+                            <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/20">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-white rounded-full p-2">
+                                        <svg className="w-6 h-6 text-[#5E6470]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-2xl font-bold tracking-tight">PrimoTech</span>
+                                </div>
+                                <button
+                                    onClick={closeMobileMenu}
+                                    className="p-2 hover:bg-white/10 rounded-full transition-colors focus:outline-none"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {/* Navigation Items */}
+                            <div className="mb-8 flex-1 overflow-y-auto">
+                                <ul className="space-y-5 font-bold text-lg">
+                                    {navItems.map((item, idx) => (
+                                        <li key={idx} className="border-b border-white/10 pb-3 last:border-0 last:pb-0">
                                             {item.submenu ? (
-                                                <button
-                                                    onClick={() => navigateToSubmenu(item, index)}
-                                                    className="w-full flex items-center justify-between py-6 text-left text-2xl font-black text-[#001F3F]"
-                                                >
-                                                    {item.label}
-                                                    <svg className="w-6 h-6 text-[#14C8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
+                                                <details className="group">
+                                                    <summary className="flex items-center justify-between cursor-pointer hover:text-white/80 list-none text-xl font-bold">
+                                                        {item.label}
+                                                        <FaChevronRight className="w-4 h-4 transition-transform group-open:rotate-90 opacity-70" />
+                                                    </summary>
+                                                    <ul className="pl-4 mt-4 space-y-4 text-base font-semibold text-white/80">
+                                                        {item.submenu.map((sub, sIdx) => {
+                                                            const isProduct = 'slug' in sub;
+                                                            const href = !isProduct ? (sub as any).href : `/products/${(sub as any).slug}`;
+                                                            return (
+                                                                <li key={sIdx}>
+                                                                    <a href={href} className="block hover:text-[#1DB5A5] transition-colors">
+                                                                        {sub.title}
+                                                                    </a>
+                                                                </li>
+                                                            );
+                                                        })}
+                                                    </ul>
+                                                </details>
                                             ) : (
-                                                <a href={item.href} className="block py-6 text-2xl font-black text-[#001F3F]">
+                                                <a href={item.href} className="block hover:text-white/80 text-xl font-bold">
                                                     {item.label}
                                                 </a>
                                             )}
-                                        </div>
+                                        </li>
                                     ))}
-                                    <div className="pt-10">
-                                        <a href="/contact" className="block w-full py-5 bg-[#14C8D4] text-[#001F3F] text-center rounded-2xl text-xl font-black shadow-lg shadow-[#14C8D4]/20">
-                                            Contact Us
-                                        </a>
-                                    </div>
+                                </ul>
+                            </div>
+
+                            <div className="border-b border-white/20 mb-8" />
+
+                            {/* Contact Us */}
+                            <div className="mb-8">
+                                <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+                                <div className="space-y-3 text-sm font-medium opacity-90">
+                                    <p>United Arab Emirates</p>
+                                    <p><a href="mailto:sales@primotech-llc.com" className="hover:underline hover:text-white">sales@primotech-llc.com</a></p>
+                                    <p><a href="tel:+971528796664" className="hover:underline hover:text-white">+971 52 879 6664</a></p>
+                                    <p>Mon-Fri: 8:30am-5:30pm</p>
                                 </div>
-                            ) : mobileMenuLevel === 'submenu' ? (
-                                <div className="space-y-8">
-                                    <h3 className="text-4xl font-black text-[#001F3F] mb-10">{navItems[activeDropdown ?? 0]?.label}</h3>
-                                    <div className="grid grid-cols-1 gap-5">
-                                        {navItems[activeDropdown ?? 0]?.submenu?.map((sub, sIdx) => {
-                                            const isProductCat = 'slug' in sub;
-                                            return (
-                                                <button
-                                                    key={sIdx}
-                                                    onClick={() => isProductCat ? navigateToProductCategory(sub as ProductCategoryMenuItem) : window.location.href = (sub as SupportMenuItem).href}
-                                                    className="w-full flex items-center justify-between p-6 bg-gray-50 rounded-3xl active:bg-[#f0fdfe] transition-colors text-left"
-                                                >
-                                                    <div className="flex items-center gap-5">
-                                                        {isProductCat ? (
-                                                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-[#14C8D4] shadow-sm text-2xl overflow-hidden">
-                                                                {(sub as ProductCategoryMenuItem).image ? (
-                                                                    <img src={(sub as ProductCategoryMenuItem).image} alt={sub.title} className="w-full h-full object-contain p-2" />
-                                                                ) : (
-                                                                    <i className={`fas ${(sub as ProductCategoryMenuItem).icon}`} />
-                                                                )}
-                                                            </div>
-                                                        ) : (
-                                                            <div className="w-14 h-14 bg-[#f0fdfe] rounded-2xl flex items-center justify-center text-3xl">
-                                                                {(sub as SupportMenuItem).icon}
-                                                            </div>
-                                                        )}
-                                                        <span className="font-extrabold text-[#001F3F] text-xl">{sub.title}</span>
-                                                    </div>
-                                                    <svg className="w-6 h-6 text-[#14C8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                    {navItems[activeDropdown ?? 0]?.kind === 'support' && (
-                                        <a href="/support" className="block w-full py-5 bg-[#001F3F] text-white text-center rounded-2xl font-black text-xl mt-10">
-                                            Visit Support Center
-                                        </a>
-                                    )}
-                                </div>
-                            ) : (
-                                <div className="space-y-8">
-                                    <h3 className="text-3xl font-black text-[#001F3F] mb-10">
-                                        {mobileMenuHistory[mobileMenuHistory.length - 1]?.label}
-                                    </h3>
-                                    <div className="grid grid-cols-1 gap-5">
-                                        {mobileMenuHistory[mobileMenuHistory.length - 1]?.category?.items.map((subcat, pIdx) => (
-                                            <a
-                                                key={pIdx}
-                                                href={`/products/${mobileMenuHistory[mobileMenuHistory.length - 1]?.category?.slug}/${subcat.slug}`}
-                                                className="flex items-center gap-5 p-5 bg-white border border-gray-100 rounded-3xl shadow-sm active:ring-2 active:ring-[#3B7597]/50"
-                                            >
-                                                <div className="w-24 h-24 bg-gray-50 rounded-2xl flex-shrink-0 p-3">
-                                                    <img src={subcat.image || '/api/placeholder/100/100'} alt={subcat.name} onError={(e) => e.currentTarget.src='/api/placeholder/100/100'} className="w-full h-full object-contain" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-black text-[#001F3F] text-lg leading-tight mb-2">{subcat.name}</h4>
-                                                    <p className="text-sm text-gray-500 line-clamp-2 font-medium">Explore series</p>
-                                                </div>
-                                            </a>
-                                        ))}
-                                    </div>
-                                    <a
-                                        href={`/products/${mobileMenuHistory[mobileMenuHistory.length - 1]?.category?.slug}`}
-                                        className="block w-full py-5 bg-secondary-accent text-white text-center rounded-2xl font-black text-xl mt-10 shadow-xl shadow-secondary-accent/30"
-                                    >
-                                        View All {mobileMenuHistory[mobileMenuHistory.length - 1]?.label}
-                                    </a>
-                                </div>
-                            )}
+                            </div>
+
+                            <div className="border-b border-white/20 mb-8" />
+
+                            {/* About Us */}
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">About Us</h3>
+                                <p className="text-sm font-medium leading-relaxed opacity-90">
+                                    Keep your home or business safe with CCTV systems designed to provide 24/7 surveillance and peace of mind. Our expert team offers tailored security solutions, from installation to remote monitoring, ensuring your property is always protected.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -827,6 +718,15 @@ const Navbar = () => {
                     animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
                 }
 
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); }
+                    to { transform: translateX(0); }
+                }
+
+                .animate-slideInRight {
+                    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+                }
+
                 .overflow-y-auto::-webkit-scrollbar {
                     width: 6px;
                 }
@@ -834,7 +734,7 @@ const Navbar = () => {
                     background: transparent;
                 }
                 .overflow-y-auto::-webkit-scrollbar-thumb {
-                    background: #14C8D4;
+                    background: #1DB5A5;
                     border-radius: 10px;
                 }
 

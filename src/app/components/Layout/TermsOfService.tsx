@@ -94,8 +94,8 @@ export default function TermsOfService() {
                 'For any questions or concerns regarding these Terms of Service, please reach out to us:',
                 '<strong>PrimoTech LLC</strong>',
                 'Shop 23, Musthafa Building, Satellite Market, Deira, Dubai, UAE',
-                'Email: <a href="mailto:sales@primotech-llc.com" class="text-[#14C8D4] hover:underline">sales@primotech-llc.com</a>',
-                'Phone: <a href="tel:+971528796664" class="text-[#14C8D4] hover:underline">+971 52 879 6664</a>',
+                'Email: <a href="mailto:sales@primotech-llc.com" class="text-[#1DB5A5] hover:underline">sales@primotech-llc.com</a>',
+                'Phone: <a href="tel:+971528796664" class="text-[#1DB5A5] hover:underline">+971 52 879 6664</a>',
             ],
         },
     ];
@@ -103,23 +103,23 @@ export default function TermsOfService() {
     return (
         <main className="min-h-screen bg-white">
             {/* Hero Banner */}
-            <section className="bg-[#001F3F] pt-36 pb-20 px-6 relative overflow-hidden">
+            <section className="bg-[#5E6470] pt-36 pb-20 px-6 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#14C8D4] rounded-full blur-[120px] -mr-64 -mt-32" />
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#14C8D4] rounded-full blur-[100px] -ml-32 -mb-32" />
+                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1DB5A5] rounded-full blur-[120px] -mr-64 -mt-32" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1DB5A5] rounded-full blur-[100px] -ml-32 -mb-32" />
                 </div>
                 <div className="max-w-4xl mx-auto relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 bg-[#14C8D4]/10 border border-[#14C8D4]/30 text-[#14C8D4] px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8">
+                    <div className="inline-flex items-center gap-2 bg-[#1DB5A5]/10 border border-[#1DB5A5]/30 text-[#1DB5A5] px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8">
                         Legal
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                        Terms of <span className="text-[#14C8D4]">Service</span>
+                        Terms of <span className="text-[#1DB5A5]">Service</span>
                     </h1>
                     <p className="text-gray-300 text-lg font-medium max-w-2xl mx-auto">
                         Please read these terms carefully before using our website or services.
                     </p>
                     <p className="mt-6 text-gray-400 text-sm font-semibold">
-                        Effective Date: <span className="text-[#14C8D4]">January 1, 2025</span> &nbsp;|&nbsp; Last Updated: <span className="text-[#14C8D4]">May 1, 2026</span>
+                        Effective Date: <span className="text-[#1DB5A5]">January 1, 2025</span> &nbsp;|&nbsp; Last Updated: <span className="text-[#1DB5A5]">May 1, 2026</span>
                     </p>
                 </div>
             </section>
@@ -127,9 +127,9 @@ export default function TermsOfService() {
             {/* Content */}
             <section className="max-w-4xl mx-auto px-6 py-20">
                 {/* Intro */}
-                <div className="bg-[#f8fafc] border-l-4 border-[#14C8D4] rounded-2xl p-8 mb-14">
+                <div className="bg-[#f8fafc] border-l-4 border-[#1DB5A5] rounded-2xl p-8 mb-14">
                     <p className="text-gray-600 text-lg leading-relaxed font-medium">
-                        These Terms of Service (&quot;Terms&quot;) govern your access to and use of the <strong className="text-[#001F3F]">PrimoTech LLC</strong> website and services. By using our website, you confirm that you are at least 18 years of age and have the legal capacity to enter into a binding agreement.
+                        These Terms of Service (&quot;Terms&quot;) govern your access to and use of the <strong className="text-[#5E6470]">PrimoTech LLC</strong> website and services. By using our website, you confirm that you are at least 18 years of age and have the legal capacity to enter into a binding agreement.
                     </p>
                 </div>
 
@@ -138,10 +138,10 @@ export default function TermsOfService() {
                     {sections.map((section, idx) => (
                         <div key={idx} className="group">
                             <div className="flex items-center gap-4 mb-5">
-                                <div className="w-10 h-10 bg-[#001F3F] rounded-xl flex items-center justify-center text-[#14C8D4] font-black text-sm flex-shrink-0">
+                                <div className="w-10 h-10 bg-[#5E6470] rounded-xl flex items-center justify-center text-[#1DB5A5] font-black text-sm flex-shrink-0">
                                     {idx + 1}
                                 </div>
-                                <h2 className="text-xl md:text-2xl font-black text-[#001F3F]">{section.title}</h2>
+                                <h2 className="text-xl md:text-2xl font-black text-[#5E6470]">{section.title}</h2>
                             </div>
                             <div className="ml-14 space-y-3 border-l-2 border-gray-100 pl-6">
                                 {section.content.map((para, pIdx) => (
@@ -157,12 +157,12 @@ export default function TermsOfService() {
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-20 bg-[#001F3F] rounded-3xl p-10 text-center">
+                <div className="mt-20 bg-[#5E6470] rounded-3xl p-10 text-center">
                     <h3 className="text-2xl font-black text-white mb-3">Questions About Our Terms?</h3>
                     <p className="text-gray-300 font-medium mb-8">We are happy to clarify any points or provide additional information about our policies.</p>
                     <a
                         href="/contact"
-                        className="inline-flex items-center gap-3 bg-[#14C8D4] text-[#001F3F] px-8 py-4 rounded-full font-black text-lg hover:bg-white transition-all duration-300 hover:shadow-xl"
+                        className="inline-flex items-center gap-3 bg-[#1DB5A5] text-[#5E6470] px-8 py-4 rounded-full font-black text-lg hover:bg-white transition-all duration-300 hover:shadow-xl"
                     >
                         Get In Touch
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

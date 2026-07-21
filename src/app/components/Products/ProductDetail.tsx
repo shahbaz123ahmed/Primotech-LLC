@@ -1,93 +1,51 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useState } from 'react';
 import Image from 'next/image';
+import { type Product } from '@/data/catalog';
 import RelatedProducts from './RelatedProducts';
 import { 
     FaCheckCircle, 
     FaTimes, 
     FaArrowRight, 
-    FaHome, 
     FaChevronRight, 
-    FaBolt, 
     FaShareAlt,
-    FaCheck
+    FaCheck,
+    FaShieldAlt,
 } from 'react-icons/fa';
 import Link from 'next/link';
 
-interface Product {
-    _id: string;
-    name: string;
-    slug: string;
-    category: string;
-    subCategory: string;
-    subTitle?: string;
-    description: string;
-    images: string[];
-    keyFeatures: string[];
-    keyHighlights?: string[];
-}
+const ProductDetail = ({ product }: { product: Product }) => {
+    const categorySlug = product.categorySlug;
+    const subcategorySlug = product.subcategorySlug;
 
-const ProductDetail = () => {
-    const params = useParams();
-    const productSlug = params?.product as string;
-    const categorySlug = params?.category as string;
-    const subcategorySlug = params?.subcategory as string;
-    
-    const [product, setProduct] = useState<Product | null>(null);
-    const [loading, setLoading] = useState(true);
     const [activeImage, setActiveImage] = useState(0);
     const [showForm, setShowForm] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [showShare, setShowShare] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [activeSpecTab, setActiveSpecTab] = useState<string | null>(
+        product.technicalSpecs && Object.keys(product.technicalSpecs).length > 0
+            ? Object.keys(product.technicalSpecs)[0]
+            : null
+    );
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
         phone: '',
-        subject: '',
-        message: ''
+        message: '',
     });
-
-    // OFFICIAL BRAND THEME
-    const brandColor = '#001F3F'; // Deep Navy
-    const accentColor = '#14C8D4'; // Cyan
-
-    useEffect(() => {
-        const fetchProduct = async () => {
-            if (productSlug) {
-                try {
-                    setLoading(true);
-                    const response = await fetch(`/api/products?slug=${productSlug}`);
-                    const data = await response.json();
-                    if (data.success) {
-                        setProduct(data.data);
-                        setFormData(prev => ({ ...prev, subject: `Inquiry: ${data.data.name}` }));
-                    }
-                } catch (error) {
-                    console.error('Error fetching product:', error);
-                } finally {
-                    setLoading(false);
-                }
-            }
-        };
-        fetchProduct();
-    }, [productSlug]);
 
     const handleShare = async () => {
         const shareUrl = window.location.href;
-        const shareTitle = `${product?.name} — PrimoTech LLC`;
-        const shareText = `Check out the ${product?.name} from PrimoTech LLC — Dubai's authorized Uniarch security camera supplier.`;
+        const shareTitle = `${product.name} — PrimoTech LLC`;
+        const shareText = `Check out the ${product.name} from PrimoTech LLC — Dubai's authorized security supplier.`;
 
-        // Use native Web Share API if available (mobile / modern browsers)
         if (navigator.share) {
             try {
                 await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
                 return;
             } catch {
-                // fallback to panel if user cancels
+                // fallback
             }
         }
         setShowShare((prev) => !prev);
@@ -99,7 +57,6 @@ const ProductDetail = () => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
         } catch {
-            // fallback
             const input = document.createElement('input');
             input.value = window.location.href;
             document.body.appendChild(input);
@@ -116,363 +73,309 @@ const ProductDetail = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleEnquirySubmit = async (e: React.FormEvent) => {
+    // TODO: Connect this form to the required submission service.
+    const handleEnquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!product) return;
-
-        try {
-            setIsSubmitting(true);
-            const response = await fetch('/api/enquiries', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    type: 'quote',
-                    productName: product.name,
-                    productId: product._id,
-                    priority: 'high'
-                })
-            });
-            const data = await response.json();
-            if (data.success) {
-                setIsSubmitted(true);
-                setFormData({ fullName: '', email: '', phone: '', subject: `Inquiry: ${product.name}`, message: '' });
-            }
-        } catch (error) {
-            console.error('Error sending enquiry:', error);
-            alert('Failed to send request. Please try again.');
-        } finally {
-            setIsSubmitting(false);
-        }
     };
 
-    if (loading) {
-        return (
-            <div className="py-40 flex flex-col items-center justify-center bg-white min-h-[70vh]">
-                <div className="w-16 h-16 border-4 border-gray-100 border-t-[#14C8D4] rounded-full animate-spin"></div>
-            </div>
-        );
-    }
-
-    if (!product) {
-        return (
-            <div className="py-40 px-6 text-center">
-                <h1 className="text-4xl font-bold text-[#001F3F]">Product Not Found</h1>
-                <Link href="/products" className="mt-8 inline-block text-gray-500 hover:text-[#14C8D4]">Back to Catalog</Link>
-            </div>
-        );
-    }
-
     return (
-        <div className="w-full bg-[#F8F9FA] selection:bg-[#14C8D4]/20">
-            
-            {/* HERO SECTION - REVERTED TO NAVY/CYAN THEME */}
-            <section className="relative bg-[#001F3F] pt-32 pb-40 overflow-hidden text-center">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,transparent_1px)] [background-size:40px_40px]"></div>
+        <div className="w-full bg-[#FAFAFA] font-sans">
+            {/* BREADCRUMBS */}
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pt-32 pb-8">
+                <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-gray-400">
+                    <Link href="/" className="hover:text-[#14C8D4] transition-colors">Home</Link>
+                    <FaChevronRight className="text-[8px]" />
+                    <Link href="/products" className="hover:text-[#14C8D4] transition-colors">Products</Link>
+                    <FaChevronRight className="text-[8px]" />
+                    <Link href={`/products/${categorySlug}`} className="hover:text-[#14C8D4] transition-colors">{categorySlug?.replace(/-/g, ' ')}</Link>
+                    <FaChevronRight className="text-[8px]" />
+                    <span className="text-[#001F3F]">{product.name}</span>
                 </div>
+            </div>
 
-                <div className="max-w-7xl mx-auto px-4 relative z-10">
-                    {/* Breadcrumbs Capsule */}
-                    <div className="inline-flex items-center gap-2 px-6 py-2.5 bg-black/20 backdrop-blur-md rounded-full border border-white/20 text-[10px] font-black uppercase tracking-widest text-white mt-12 mb-10">
-                        <Link href="/" className="hover:text-[#14C8D4] transition-colors flex items-center gap-1.5">Home</Link>
-                        <FaChevronRight className="text-[7px] opacity-40" />
-                        <Link href="/products" className="hover:text-[#14C8D4] transition-colors">Products</Link>
-                        <FaChevronRight className="text-[7px] opacity-40" />
-                        <Link href={`/products/${categorySlug}`} className="hover:text-[#14C8D4] transition-colors">{categorySlug?.replace(/-/g, ' ')}</Link>
-                        <FaChevronRight className="text-[7px] opacity-40" />
-                        <Link href={`/products/${categorySlug}/${subcategorySlug}`} className="hover:text-[#14C8D4] transition-colors">{product.subCategory}</Link>
-                        <FaChevronRight className="text-[7px] opacity-40" />
-                        <span className="opacity-70">{product.name}</span>
+            {/* HERO PRODUCT SECTION (APPLE STYLE) */}
+            <section className="max-w-[1400px] mx-auto px-6 lg:px-12 pb-20">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                    
+                    {/* LEFT: Sticky Interactive Image Gallery */}
+                    <div className="lg:col-span-5">
+                        <div className="sticky top-32">
+                            <div className="w-full relative bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-[0_5px_20px_rgba(0,0,0,0.03)] border border-gray-100 p-4 md:p-6 flex flex-col gap-4 overflow-hidden group">
+                                
+                                {/* Decorative Corner Shades */}
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#14C8D4]/15 to-transparent rounded-bl-full pointer-events-none z-20"></div>
+                                <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#001F3F]/10 to-transparent rounded-tr-full pointer-events-none z-20"></div>
+
+                                {/* Main Display Image */}
+                                <div className="w-full relative aspect-[4/3] flex items-center justify-center z-10">
+                                    {product.images.length > 0 ? (
+                                        <Image 
+                                            src={product.images[activeImage]} 
+                                            alt={product.name} 
+                                            fill
+                                            className="object-contain px-4 pb-4 pt-16 relative z-10 transition-transform duration-700 group-hover:scale-125" 
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-gray-300 text-sm font-bold">No image available</div>
+                                    )}
+                                </div>
+
+                                {/* Share Button */}
+                                <div className="absolute top-6 right-6 z-20">
+                                    <button
+                                        onClick={handleShare}
+                                        className="w-12 h-12 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-[#001F3F] hover:text-[#14C8D4] hover:scale-110 transition-all"
+                                    >
+                                        <FaShareAlt />
+                                    </button>
+
+                                    {/* Share Panel */}
+                                    {showShare && (
+                                        <div className="absolute right-0 top-full mt-3 z-50 bg-white rounded-2xl border border-gray-100 shadow-2xl p-4 w-60 animate-in fade-in slide-in-from-top-2 duration-200">
+                                            <button onClick={handleCopyLink} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all text-left">
+                                                <span className="text-sm font-bold text-[#001F3F]">{copied ? 'Link Copied!' : 'Copy Link'}</span>
+                                            </button>
+                                            <a href={`https://wa.me/?text=${encodeURIComponent(`${product.name}\n${typeof window !== 'undefined' ? window.location.href : ''}`)}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all">
+                                                <span className="text-sm font-bold text-[#001F3F]">WhatsApp</span>
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Thumbnails (Horizontal below main image) */}
+                                {product.images.length > 1 && (
+                                    <div className="flex gap-4 overflow-x-auto hide-scrollbar mt-8 pb-2 justify-start md:justify-center relative z-10">
+                                        {product.images.map((img, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setActiveImage(idx)}
+                                                onMouseEnter={() => setActiveImage(idx)}
+                                                className={`relative w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white border overflow-hidden transition-all shrink-0 ${
+                                                    activeImage === idx ? 'border-[#14C8D4] shadow-md scale-105' : 'border-gray-200 hover:border-gray-300 hover:scale-105 shadow-sm opacity-60 hover:opacity-100'
+                                                }`}
+                                            >
+                                                <Image src={img} alt={`${product.name} - View ${idx + 1}`} fill className="object-contain p-2" />
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tighter leading-tight">
-                        {product.name}
-                    </h1>
+                    {/* RIGHT: Product Details & CTA */}
+                    <div className="lg:col-span-7 flex flex-col justify-center">
+                        <span className="text-[#14C8D4] font-black text-xs uppercase tracking-[0.3em] mb-4 block">
+                            {product.category} Series
+                        </span>
+                        
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#001F3F] leading-[1.1] mb-6 tracking-tight">
+                            {product.name}
+                        </h1>
 
-                    {product.subTitle && (
-                        <p className="text-[#14C8D4] text-lg md:text-xl font-black uppercase tracking-[0.4em] mb-10">
-                            {product.subTitle}
+                        {product.subTitle && (
+                            <h2 className="text-xl md:text-2xl text-gray-500 font-bold mb-8">
+                                {product.subTitle}
+                            </h2>
+                        )}
+
+                        <p className="text-gray-600 text-lg leading-relaxed mb-10">
+                            {product.description}
                         </p>
-                    )}
 
-                    <div className="flex flex-wrap justify-center items-center gap-4 text-white font-bold text-sm">
-                        <span className="opacity-60 uppercase tracking-widest text-[10px]">Model: {product.name}</span>
-                        <div className="flex items-center gap-2 bg-white text-[#001F3F] px-5 py-2.5 rounded-xl shadow-lg border border-white">
-                            <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
-                                <FaCheck className="text-[10px] text-white" />
+                        {/* Status Pills */}
+                        <div className="flex flex-wrap gap-3 mb-12">
+                            <div className="flex items-center gap-2 bg-[#001F3F] text-white px-4 py-2 rounded-full shadow-md">
+                                <FaCheckCircle className="text-[#14C8D4] text-sm" />
+                                <span className="text-[11px] font-black uppercase tracking-widest">Premium Quality</span>
                             </div>
-                            <span className="uppercase tracking-widest text-[10px] font-black">Verified Authentic</span>
+                            <div className="flex items-center gap-2 bg-white text-[#001F3F] px-4 py-2 rounded-full border border-gray-200">
+                                <FaShieldAlt className="text-gray-400 text-sm" />
+                                <span className="text-[11px] font-black uppercase tracking-widest">Authorized Dealer</span>
+                            </div>
+                        </div>
+
+                        {/* CTA Box */}
+                        <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+                            <h3 className="text-2xl font-black text-[#001F3F] mb-2">Request a Quote</h3>
+                            <p className="text-gray-500 text-sm font-medium mb-8">Our security experts are ready to provide pricing and system design assistance.</p>
+                            
+                            <button 
+                                onClick={() => setShowForm(true)}
+                                className="w-full py-5 bg-[#001F3F] text-white rounded-xl font-black text-sm uppercase tracking-[0.2em] hover:bg-[#14C8D4] hover:text-[#001F3F] hover:shadow-xl hover:shadow-[#14C8D4]/20 transition-all flex items-center justify-center gap-4 group"
+                            >
+                                Get Expert Pricing
+                                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                            </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* MAIN CONTENT CARD */}
-            <div className="max-w-7xl mx-auto px-4 -mt-20 relative z-20 mb-12">
-                <div className="bg-white rounded-[3rem] shadow-2xl p-8 md:p-10 lg:p-12 border border-white overflow-hidden">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-                        
-                        {/* LEFT: Image Area */}
-                        <div className="lg:col-span-5 flex flex-col items-center">
-                            <div className="w-full aspect-square bg-[#F3F4F6] rounded-[2.5rem] p-12 relative flex items-center justify-center group overflow-hidden border border-gray-100">
-                                <Image 
-                                    src={product.images[activeImage]} 
-                                    alt={product.name} 
-                                    fill
-                                    className="object-contain p-12 relative z-10 transition-transform duration-700 group-hover:scale-110" 
-                                />
+            {/* BENTO GRID: KEY FEATURES & HIGHLIGHTS */}
+            <section className="bg-white py-24 border-y border-gray-100">
+                <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-[#001F3F] mb-6 tracking-tight">Engineered for Excellence</h2>
+                        <p className="text-gray-500 text-lg">Discover the advanced capabilities that make the {product.name} a top-tier security choice.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* Features List */}
+                        <div className={`bg-[#FAFAFA] rounded-[2.5rem] p-10 border border-gray-100 ${product.keyHighlights?.length ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-[#14C8D4]">
+                                    <FaCheckCircle className="text-xl" />
+                                </div>
+                                <h3 className="text-2xl font-black text-[#001F3F]">Technical Capabilities</h3>
                             </div>
                             
-                            {/* Share Button + Panel */}
-                            <div className="relative mt-8">
-                                <button
-                                    onClick={handleShare}
-                                    className="flex items-center gap-3 px-6 py-3 bg-gray-50 hover:bg-[#001F3F] hover:text-white text-gray-500 rounded-xl transition-all duration-300 font-bold text-xs border border-gray-100 shadow-sm group"
-                                >
-                                    <FaShareAlt className="text-sm group-hover:text-[#14C8D4] transition-colors" />
-                                    Share Product
-                                </button>
-
-                                {/* Share Dropdown Panel */}
-                                {showShare && (
-                                    <div className="absolute left-0 top-full mt-3 z-50 bg-white rounded-2xl border border-gray-100 shadow-2xl p-4 w-64 animate-in fade-in slide-in-from-top-2 duration-200">
-                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 px-1">Share via</p>
-
-                                        {/* Copy Link */}
-                                        <button
-                                            onClick={handleCopyLink}
-                                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all text-left group"
-                                        >
-                                            <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center group-hover:bg-[#001F3F] transition-colors">
-                                                {copied ? (
-                                                    <FaCheck className="text-green-500 text-xs" />
-                                                ) : (
-                                                    <svg className="w-3.5 h-3.5 text-gray-500 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                                    </svg>
-                                                )}
+                            {product.keyFeatures.length > 0 ? (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {product.keyFeatures.map((feature, idx) => (
+                                        <div key={idx} className="flex h-full min-h-[80px] items-start gap-4 p-4 bg-white rounded-2xl shadow-sm border border-gray-50">
+                                            <div className="w-6 h-6 rounded-full bg-[#14C8D4]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                <FaCheck className="text-[10px] text-[#14C8D4]" />
                                             </div>
-                                            <span className="text-sm font-bold text-gray-700">
-                                                {copied ? 'Link Copied!' : 'Copy Link'}
-                                            </span>
-                                        </button>
-
-                                        {/* WhatsApp */}
-                                        <a
-                                            href={`https://wa.me/?text=${encodeURIComponent(`${product.name} — PrimoTech LLC\n${window.location.href}`)}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all group"
-                                        >
-                                            <div className="w-8 h-8 rounded-lg bg-[#25D366]/10 flex items-center justify-center group-hover:bg-[#25D366] transition-colors">
-                                                <svg className="w-4 h-4 text-[#25D366] group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                                                </svg>
-                                            </div>
-                                            <span className="text-sm font-bold text-gray-700">WhatsApp</span>
-                                        </a>
-
-                                        {/* Email */}
-                                        <a
-                                            href={`mailto:?subject=${encodeURIComponent(`${product.name} — PrimoTech LLC`)}&body=${encodeURIComponent(`I found this product and thought you might be interested:\n\n${product.name}\n${window.location.href}`)}`}
-                                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all group"
-                                        >
-                                            <div className="w-8 h-8 rounded-lg bg-[#14C8D4]/10 flex items-center justify-center group-hover:bg-[#14C8D4] transition-colors">
-                                                <svg className="w-3.5 h-3.5 text-[#14C8D4] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                </svg>
-                                            </div>
-                                            <span className="text-sm font-bold text-gray-700">Email</span>
-                                        </a>
-
-                                        {/* Close */}
-                                        <button
-                                            onClick={() => setShowShare(false)}
-                                            className="w-full mt-1 text-center text-[10px] font-black text-gray-300 hover:text-gray-500 uppercase tracking-widest py-1 transition-colors"
-                                        >
-                                            Close
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+                                            <span className="text-[#001F3F] font-bold text-sm leading-relaxed">{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="text-gray-400 font-medium text-sm">Features will be listed here.</p>
+                            )}
                         </div>
 
-                        {/* RIGHT: Highlights Area */}
-                        <div className="lg:col-span-7 flex flex-col">
-                            <div className="mb-8">
-                                <span className="text-[#14C8D4] font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">
-                                    {product.category} &gt; {product.subCategory}
-                                </span>
-                                <h2 className="text-4xl md:text-5xl font-black text-[#001F3F] leading-tight mb-8">
-                                    {product.subTitle || product.name}
-                                </h2>
-
-                                <p className="text-gray-500 text-lg leading-relaxed mb-10 font-medium">
-                                    {product.description}
-                                </p>
-
-                                <div className="flex items-center gap-4 mb-8">
-                                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#14C8D4] border border-gray-100">
-                                        <FaBolt className="text-sm" />
+                        {/* Highlights Box */}
+                        {product.keyHighlights && product.keyHighlights.length > 0 && (
+                            <div className="bg-[#001F3F] rounded-[2.5rem] p-10 relative overflow-hidden text-white">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#14C8D4]/20 to-transparent rounded-bl-full pointer-events-none"></div>
+                                
+                                <div className="flex items-center gap-4 mb-8 relative z-10">
+                                    <div className="w-12 h-12 bg-white/10 rounded-xl backdrop-blur-sm flex items-center justify-center text-[#14C8D4]">
+                                        <FaShieldAlt className="text-xl" />
                                     </div>
-                                    <h3 className="text-xl font-black text-[#001F3F] tracking-tight">Key Highlights</h3>
+                                    <h3 className="text-2xl font-black">Key Advantages</h3>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    {(product.keyHighlights || []).map((highlight, idx) => (
-                                        <div key={idx} className="p-5 rounded-2xl bg-white border border-gray-100 hover:border-[#14C8D4]/20 transition-all hover:shadow-lg group">
-                                            <span className="text-[10px] font-black text-[#14C8D4] uppercase tracking-widest mb-3 block">Point {idx + 1}</span>
-                                            <p className="text-sm text-[#001F3F] font-bold leading-relaxed">
-                                                {highlight}
-                                            </p>
+                                <div className="space-y-6 relative z-10">
+                                    {product.keyHighlights.map((highlight, idx) => (
+                                        <div key={idx} className="border-l-2 border-[#14C8D4] pl-5">
+                                            <span className="text-[10px] font-black text-[#14C8D4] uppercase tracking-widest block mb-2">Advantage 0{idx + 1}</span>
+                                            <p className="font-bold text-white/90 text-sm leading-relaxed">{highlight}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    {/* Features & Custom Solution Section */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 pt-12 border-t border-gray-100">
-                        {/* Technical Features */}
-                        <div>
-                            <div className="flex items-center gap-4 mb-10">
-                                <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-[#14C8D4] border border-gray-100">
-                                    <FaCheckCircle className="text-sm" />
-                                </div>
-                                <h3 className="text-xl font-black text-[#001F3F] tracking-tight">Technical Features</h3>
-                            </div>
-                            <div className="space-y-2">
-                                {product.keyFeatures.map((feature, idx) => (
-                                    <div key={idx} className="flex items-center gap-4 p-3 bg-gray-50/50 rounded-xl border-l-4 border-[#14C8D4] group hover:bg-gray-50 transition-all">
-                                        <div className="w-2 h-2 rounded-full bg-[#14C8D4]"></div>
-                                        <span className="text-sm font-bold text-gray-700">{feature}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Custom Solution Box */}
-                        <div className="flex flex-col justify-center">
-                            <div className="p-10 rounded-[2.5rem] bg-[#001F3F] border border-white/10 shadow-xl relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#14C8D4]/10 rounded-bl-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000"></div>
-                                <div className="relative z-10">
-                                    <h4 className="text-2xl font-black text-white mb-4 tracking-tight">Need a custom solution?</h4>
-                                    <p className="text-white/60 font-medium leading-relaxed mb-10 text-sm">
-                                        Our experts can help you design the perfect security system tailored to your specific requirements.
-                                    </p>
-                                    <button 
-                                        onClick={() => setShowForm(true)}
-                                        className="inline-flex items-center gap-4 px-10 py-5 bg-[#14C8D4] text-[#001F3F] rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-2xl hover:shadow-[#14C8D4]/40 transition-all active:scale-95 group/btn"
-                                    >
-                                        Get a Free Quote
-                                        <FaArrowRight className="group-hover/btn:translate-x-2 transition-transform" />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
-            </div>
+            </section>
+
+            {/* TECHNICAL SPECIFICATIONS SECTION */}
+            {product.technicalSpecs && Object.keys(product.technicalSpecs).length > 0 && (
+                <section className="bg-[#FAFAFA] py-24">
+                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                        <div className="flex flex-col md:flex-row gap-12 lg:gap-24">
+                            
+                            {/* Sticky Left Sidebar for Spec Categories */}
+                            <div className="w-full md:w-64 shrink-0">
+                                <div className="sticky top-32">
+                                    <h3 className="text-3xl font-black text-[#001F3F] mb-8">Specifications</h3>
+                                    <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-4 md:pb-0 hide-scrollbar">
+                                        {Object.keys(product.technicalSpecs).map((specCategory, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setActiveSpecTab(specCategory)}
+                                                className={`text-left px-6 py-4 rounded-2xl font-bold text-sm transition-all whitespace-nowrap md:whitespace-normal ${
+                                                    activeSpecTab === specCategory 
+                                                        ? 'bg-[#001F3F] text-white shadow-xl' 
+                                                        : 'bg-white text-gray-500 hover:bg-gray-100 hover:text-[#001F3F]'
+                                                }`}
+                                            >
+                                                {specCategory}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right Content Area for Spec Data */}
+                            <div className="flex-1">
+                                {activeSpecTab && product.technicalSpecs[activeSpecTab] && (
+                                    <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-gray-100 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                        <h4 className="text-2xl font-black text-[#001F3F] mb-8 pb-6 border-b border-gray-100">{activeSpecTab}</h4>
+                                        <div className="grid grid-cols-1 gap-0">
+                                            {product.technicalSpecs[activeSpecTab].map((spec, idx) => (
+                                                <div 
+                                                    key={idx} 
+                                                    className={`grid grid-cols-1 sm:grid-cols-3 gap-4 py-6 ${
+                                                        idx !== product.technicalSpecs![activeSpecTab].length - 1 ? 'border-b border-gray-50' : ''
+                                                    }`}
+                                                >
+                                                    <div className="sm:col-span-1 font-bold text-[#001F3F]/60 text-sm">
+                                                        {spec.label}
+                                                    </div>
+                                                    <div className="sm:col-span-2 font-bold text-[#001F3F] text-sm leading-relaxed">
+                                                        {spec.value}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* RELATED ECOSYSTEM */}
             <div className="bg-white border-t border-gray-100">
-                <RelatedProducts 
-                    currentCategory={product.category} 
-                    currentProductId={product._id} 
-                />
+                <RelatedProducts currentProductSlug={product.slug} currentCategorySlug={product.categorySlug} />
             </div>
 
-            {/* ENQUIRY MODAL - REDESIGNED */}
+            {/* ENQUIRY MODAL */}
             {showForm && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xl transition-all duration-500">
-                    <div className="bg-white rounded-[3rem] w-full max-w-lg p-8 md:p-10 shadow-2xl relative overflow-hidden">
+                <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/40 backdrop-blur-md transition-all duration-500">
+                    <div className="bg-white rounded-[2.5rem] w-full max-w-xl p-8 md:p-12 shadow-2xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-300">
                         {/* Decorative Background */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#14C8D4]/5 rounded-full -mr-32 -mt-32"></div>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#14C8D4]/10 rounded-full -mr-32 -mt-32"></div>
                         
                         <button 
-                            onClick={() => {
-                                setShowForm(false);
-                                setTimeout(() => setIsSubmitted(false), 500);
-                            }} 
-                            className="absolute top-8 right-8 text-gray-300 hover:text-[#001F3F] transition-all hover:scale-125 z-50"
+                            onClick={() => setShowForm(false)} 
+                            className="absolute top-8 right-8 w-10 h-10 bg-gray-50 hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-500 transition-all z-50"
                         >
-                            <FaTimes className="text-2xl" />
+                            <FaTimes />
                         </button>
                         
-                        {isSubmitted ? (
-                            <div className="py-12 text-center animate-in fade-in zoom-in duration-500 relative z-10">
-                                <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8 border border-green-100">
-                                    <FaCheckCircle className="text-5xl text-green-500 animate-pulse" />
+                        <div className="mb-8 relative z-10">
+                            <h3 className="text-3xl font-black mb-3 text-[#001F3F] tracking-tight">Request Quote</h3>
+                            <p className="text-sm font-bold text-gray-400">For {product.name}</p>
+                        </div>
+                        
+                        {/* TODO: Connect this form to the required submission service. */}
+                        <form onSubmit={handleEnquirySubmit} className="space-y-5 relative z-10">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <input name="fullName" required placeholder="Full Name" value={formData.fullName} onChange={handleInputChange} className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold transition-all placeholder:text-gray-400" />
                                 </div>
-                                <h3 className="text-4xl font-black text-[#001F3F] mb-4 tracking-tighter">Request Received</h3>
-                                <p className="text-gray-500 font-medium mb-10 max-w-sm mx-auto leading-relaxed">
-                                    Our technical team has received your inquiry for <span className="text-[#001F3F] font-bold">{product.name}</span>. We will analyze your requirements and contact you shortly.
-                                </p>
-                                <button 
-                                    onClick={() => {
-                                        setShowForm(false);
-                                        setTimeout(() => setIsSubmitted(false), 500);
-                                    }} 
-                                    className="px-12 py-5 bg-[#001F3F] text-[#14C8D4] rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#14C8D4] hover:text-[#001F3F] transition-all shadow-xl active:scale-95"
-                                >
-                                    Close Panel
-                                </button>
+                                <div>
+                                    <input name="email" type="email" required placeholder="Email Address" value={formData.email} onChange={handleInputChange} className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold transition-all placeholder:text-gray-400" />
+                                </div>
                             </div>
-                        ) : (
-                            <>
-                                <div className="mb-6 relative z-10">
-                                    <h3 className="text-3xl font-black mb-4 text-[#001F3F] tracking-tighter leading-tight">Get a Product Quote</h3>
-                                    
-                                    {/* Auto-fetched Product Details Area */}
-                                    <div className="flex items-center gap-5 p-4 bg-gray-50 rounded-[1.5rem] border border-gray-100 shadow-inner group">
-                                        <div className="w-20 h-20 relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm flex-shrink-0">
-                                            <Image 
-                                                src={product.images[0]} 
-                                                alt={product.name}
-                                                fill 
-                                                className="object-contain p-2 group-hover:scale-110 transition-transform duration-500" 
-                                            />
-                                        </div>
-                                        <div className="flex-1 overflow-hidden">
-                                            <h4 className="text-lg font-black text-[#001F3F] leading-tight truncate">{product.name}</h4>
-                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">
-                                                {product.category} &gt; {product.subCategory}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <form onSubmit={handleEnquirySubmit} className="space-y-4 relative z-10">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1">
-                                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
-                                            <input name="fullName" required placeholder="John Doe" value={formData.fullName} onChange={handleInputChange} className="w-full px-5 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold transition-all placeholder:text-gray-300" />
-                                        </div>
-                                        <div className="space-y-1">
-                                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
-                                            <input name="email" type="email" required placeholder="john@company.com" value={formData.email} onChange={handleInputChange} className="w-full px-5 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold transition-all placeholder:text-gray-300" />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
-                                        <input name="phone" required placeholder="+971 -- --- ----" value={formData.phone} onChange={handleInputChange} className="w-full px-5 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold transition-all placeholder:text-gray-300" />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Requirement Details</label>
-                                        <textarea name="message" rows={2} placeholder="Tell us about your project requirements..." value={formData.message} onChange={handleInputChange} className="w-full px-5 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold resize-none transition-all placeholder:text-gray-300" />
-                                    </div>
-                                    
-                                    <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-[#001F3F] text-[#14C8D4] rounded-xl font-black text-[11px] uppercase tracking-[0.4em] hover:shadow-2xl hover:shadow-[#14C8D4]/20 transition-all flex items-center justify-center gap-4 active:scale-95 disabled:opacity-50">
-                                        {isSubmitting ? <div className="w-6 h-6 border-2 border-[#14C8D4] border-t-transparent rounded-full animate-spin"></div> : (
-                                            <>Send Quote Request <FaArrowRight className="text-[10px]" /></>
-                                        )}
-                                    </button>
-                                </form>
-                            </>
-                        )}
+                            <div>
+                                <input name="phone" required placeholder="Phone Number" value={formData.phone} onChange={handleInputChange} className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold transition-all placeholder:text-gray-400" />
+                            </div>
+                            <div>
+                                <textarea name="message" rows={3} placeholder="Tell us about your requirements..." value={formData.message} onChange={handleInputChange} className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:border-[#14C8D4] outline-none text-sm font-bold resize-none transition-all placeholder:text-gray-400" />
+                            </div>
+                            
+                            <button type="submit" className="w-full py-5 bg-[#001F3F] text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] hover:bg-[#14C8D4] hover:text-[#001F3F] transition-all flex items-center justify-center gap-3 active:scale-95">
+                                Submit Request <FaArrowRight />
+                            </button>
+                        </form>
                     </div>
                 </div>
             )}

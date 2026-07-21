@@ -37,21 +37,21 @@ export default function VideoLibraryClient() {
     return (
         <main className="min-h-screen bg-[#fcfdfe]">
             {/* Enhanced Hero Section */}
-            <section className="relative pt-40 pb-32 overflow-hidden bg-[#001F3F]">
+            <section className="relative pt-40 pb-32 overflow-hidden bg-[#5E6470]">
                 {/* Dynamic Background Elements */}
                 <div className="absolute top-0 left-0 w-full h-full">
-                    <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#14C8D4]/10 rounded-full blur-[120px] animate-pulse"></div>
-                    <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#14C8D4]/5 rounded-full blur-[100px]"></div>
+                    <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#1DB5A5]/10 rounded-full blur-[120px] animate-pulse"></div>
+                    <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#1DB5A5]/5 rounded-full blur-[100px]"></div>
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.03] pointer-events-none"
-                        style={{ backgroundImage: 'radial-gradient(#14C8D4 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+                        style={{ backgroundImage: 'radial-gradient(#1DB5A5 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
                     </div>
                 </div>
 
                 {/* Floating Abstract Shapes */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-20 left-[10%] w-32 h-32 border-2 border-[#14C8D4]/20 rounded-3xl rotate-12 animate-float"></div>
-                    <div className="absolute bottom-20 right-[15%] w-24 h-24 border-2 border-[#14C8D4]/10 rounded-full animate-float-delayed"></div>
-                    <div className="absolute top-1/3 right-[5%] w-16 h-16 bg-[#14C8D4]/10 rounded-2xl -rotate-12 blur-sm"></div>
+                    <div className="absolute top-20 left-[10%] w-32 h-32 border-2 border-[#1DB5A5]/20 rounded-3xl rotate-12 animate-float"></div>
+                    <div className="absolute bottom-20 right-[15%] w-24 h-24 border-2 border-[#1DB5A5]/10 rounded-full animate-float-delayed"></div>
+                    <div className="absolute top-1/3 right-[5%] w-16 h-16 bg-[#1DB5A5]/10 rounded-2xl -rotate-12 blur-sm"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -59,15 +59,15 @@ export default function VideoLibraryClient() {
                         {/* Animated Badge */}
                         <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 px-6 py-2.5 rounded-full mb-10 shadow-2xl animate-fadeIn">
                             <div className="relative">
-                                <FaVideo className="text-[#14C8D4] text-sm relative z-10" />
-                                <div className="absolute inset-0 bg-[#14C8D4] blur-md opacity-50 animate-ping"></div>
+                                <FaVideo className="text-[#1DB5A5] text-sm relative z-10" />
+                                <div className="absolute inset-0 bg-[#1DB5A5] blur-md opacity-50 animate-ping"></div>
                             </div>
                             <span className="text-white font-black text-[10px] uppercase tracking-[0.3em]">Visual Learning Hub</span>
                         </div>
 
                         <h1 className="text-[64px] md:text-[88px] font-black text-white mb-8 leading-[0.9] tracking-tighter animate-slideUp">
                             Technical <br className="hidden md:block" />
-                            <span className="bg-gradient-to-r from-[#14C8D4] via-white to-[#14C8D4] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                            <span className="bg-gradient-to-r from-[#1DB5A5] via-white to-[#1DB5A5] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
                                 Video Library
                             </span>
                         </h1>
@@ -79,7 +79,7 @@ export default function VideoLibraryClient() {
                         </p>
 
                         <div className="flex items-center gap-6 animate-fadeInDelayed">
-                            <div className="w-1.5 h-12 bg-gradient-to-b from-transparent via-[#14C8D4] to-transparent"></div>
+                            <div className="w-1.5 h-12 bg-gradient-to-b from-transparent via-[#1DB5A5] to-transparent"></div>
                             <div className="text-left">
                                 <p className="text-white font-bold text-sm uppercase tracking-widest mb-1">Expert Content</p>
                                 <p className="text-gray-500 text-xs font-bold">24/7 Technical Support Available</p>
@@ -139,16 +139,16 @@ export default function VideoLibraryClient() {
 
                             <div className="p-10">
                                 <div className="flex items-center justify-between mb-6">
-                                    <span className="bg-gray-50 text-[#001F3F] px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-gray-100">
+                                    <span className="bg-gray-50 text-[#5E6470] px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider border border-gray-100">
                                         {video.category}
                                     </span>
                                     <div className="flex items-center gap-2 text-gray-400 font-bold text-xs">
-                                        <FaInfoCircle className="text-[#14C8D4]" />
+                                        <FaInfoCircle className="text-[#1DB5A5]" />
                                         {video.tag}
                                     </div>
                                 </div>
 
-                                <h2 className="text-2xl font-black text-[#001F3F] mb-4 group-hover:text-[#14C8D4] transition-colors leading-tight">
+                                <h2 className="text-2xl font-black text-[#5E6470] mb-4 group-hover:text-[#1DB5A5] transition-colors leading-tight">
                                     {video.title}
                                 </h2>
 
@@ -161,13 +161,13 @@ export default function VideoLibraryClient() {
                                         href={`https://youtu.be/${video.id}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-3 text-[#001F3F] font-black text-sm hover:text-[#14C8D4] transition-all group/link"
+                                        className="inline-flex items-center gap-3 text-[#5E6470] font-black text-sm hover:text-[#1DB5A5] transition-all group/link"
                                     >
                                         <FaYoutube className="text-xl text-[#FF0000]" />
                                         Watch on YouTube
                                     </a>
 
-                                    <div className="flex items-center gap-2 text-[#14C8D4] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="flex items-center gap-2 text-[#1DB5A5] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                                         Playing Now <FaPlay className="text-[8px] animate-pulse" />
                                     </div>
                                 </div>
@@ -179,8 +179,8 @@ export default function VideoLibraryClient() {
 
             {/* CTA Section */}
             <section className="pb-24 px-6">
-                <div className="max-w-5xl mx-auto bg-[#001F3F] rounded-[3rem] p-16 relative overflow-hidden text-center">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#14C8D4]/10 blur-[80px] rounded-full"></div>
+                <div className="max-w-5xl mx-auto bg-[#5E6470] rounded-[3rem] p-16 relative overflow-hidden text-center">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#1DB5A5]/10 blur-[80px] rounded-full"></div>
 
                     <div className="relative z-10">
                         <h2 className="text-4xl font-black text-white mb-6">Can&apos;t find what you&apos;re looking for?</h2>
@@ -191,13 +191,13 @@ export default function VideoLibraryClient() {
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                             <a
                                 href="/support/faq"
-                                className="bg-white text-[#001F3F] px-10 py-4 rounded-full font-black text-lg hover:bg-[#14C8D4] transition-all hover:shadow-xl active:scale-95 w-full sm:w-auto text-center"
+                                className="bg-white text-[#5E6470] px-10 py-4 rounded-full font-black text-lg hover:bg-[#1DB5A5] transition-all hover:shadow-xl active:scale-95 w-full sm:w-auto text-center"
                             >
                                 Visit FAQ
                             </a>
                             <a
                                 href="/contact"
-                                className="bg-transparent border-2 border-white/20 text-white px-10 py-4 rounded-full font-black text-lg hover:border-[#14C8D4] hover:text-[#14C8D4] transition-all w-full sm:w-auto text-center"
+                                className="bg-transparent border-2 border-white/20 text-white px-10 py-4 rounded-full font-black text-lg hover:border-[#1DB5A5] hover:text-[#1DB5A5] transition-all w-full sm:w-auto text-center"
                             >
                                 Contact Support
                             </a>

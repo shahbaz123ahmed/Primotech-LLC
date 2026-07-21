@@ -48,7 +48,7 @@ const Breadcrumbs = () => {
       <div className="max-w-7xl mx-auto px-6">
         <ol className="flex items-center gap-3 text-sm font-medium text-gray-500 overflow-x-auto whitespace-nowrap no-scrollbar py-1">
           <li className="flex items-center shrink-0">
-            <Link href="/" className="hover:text-[#14C8D4] transition-colors flex items-center gap-2">
+            <Link href="/" className="hover:text-[#1DB5A5] transition-colors flex items-center gap-2">
               <FaHome className="text-base" />
               <span className="hidden md:inline">Home</span>
             </Link>
@@ -58,8 +58,8 @@ const Breadcrumbs = () => {
               <FaChevronRight className="text-[10px] text-gray-300" />
               <Link
                 href={crumb.href}
-                className={`hover:text-[#14C8D4] transition-colors capitalize ${
-                  index === breadcrumbs.length - 1 ? 'text-[#001F3F] font-bold pointer-events-none' : ''
+                className={`hover:text-[#1DB5A5] transition-colors capitalize ${
+                  index === breadcrumbs.length - 1 ? 'text-[#5E6470] font-bold pointer-events-none' : ''
                 }`}
               >
                 {crumb.label}

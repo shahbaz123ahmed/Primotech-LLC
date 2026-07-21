@@ -56,11 +56,11 @@ const FAQ = () => {
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-20">
-                    <div className="inline-flex items-center gap-3 px-6 py-2 bg-[#001F3F]/5 rounded-full mb-6 border border-[#001F3F]/10">
-                        <span className="text-[#001F3F] font-black uppercase tracking-[0.4em] text-[10px]">Support Center</span>
+                    <div className="inline-flex items-center gap-3 px-6 py-2 bg-[#5E6470]/5 rounded-full mb-6 border border-[#5E6470]/10">
+                        <span className="text-[#5E6470] font-black uppercase tracking-[0.4em] text-[10px]">Support Center</span>
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-black text-[#001F3F] mb-6 tracking-tighter leading-[1.1] md:leading-tight">
-                        Frequently Asked <span className="text-[#14C8D4]">Questions</span>
+                    <h2 className="text-4xl md:text-6xl font-black text-[#5E6470] mb-6 tracking-tighter leading-[1.1] md:leading-tight">
+                        Frequently Asked <span className="text-[#1DB5A5]">Questions</span>
                     </h2>
                     <p className="text-gray-500 text-lg font-medium">
                         Everything you need to know about our products and services.
@@ -74,7 +74,7 @@ const FAQ = () => {
                             key={index}
                             className={`group border rounded-[2rem] transition-all duration-500 ${
                                 openIndex === index 
-                                ? 'border-[#14C8D4] bg-gray-50/50 shadow-[0_20px_40px_rgba(20,200,212,0.05)]' 
+                                ? 'border-[#1DB5A5] bg-gray-50/50 shadow-[0_20px_40px_rgba(20,200,212,0.05)]' 
                                 : 'border-gray-100 bg-white hover:border-gray-200'
                             }`}
                         >
@@ -83,14 +83,14 @@ const FAQ = () => {
                                 className="w-full px-6 md:px-8 py-6 md:py-8 flex items-center justify-between text-left"
                             >
                                 <span className={`text-lg md:text-xl font-black transition-colors duration-300 ${
-                                    openIndex === index ? 'text-[#001F3F]' : 'text-[#001F3F]/80 group-hover:text-[#001F3F]'
+                                    openIndex === index ? 'text-[#5E6470]' : 'text-[#5E6470]/80 group-hover:text-[#5E6470]'
                                 }`}>
                                     {faq.question}
                                 </span>
                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
                                     openIndex === index 
-                                    ? 'bg-[#14C8D4] text-white rotate-180' 
-                                    : 'bg-gray-100 text-[#001F3F] group-hover:bg-[#001F3F] group-hover:text-white'
+                                    ? 'bg-[#1DB5A5] text-white rotate-180' 
+                                    : 'bg-gray-100 text-[#5E6470] group-hover:bg-[#5E6470] group-hover:text-white'
                                 }`}>
                                     {openIndex === index ? <FaMinus /> : <FaPlus />}
                                 </div>
@@ -112,19 +112,19 @@ const FAQ = () => {
                 </div>
 
                 {/* Footer CTA */}
-                <div className="mt-20 text-center p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] bg-[#001F3F] relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#14C8D4]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="mt-20 text-center p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] bg-[#5E6470] relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#1DB5A5]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                     <p className="text-white text-2xl font-black mb-8 relative z-10">Still have more questions?</p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
                         <a 
                             href="/support/faq"
-                            className="inline-flex items-center gap-4 bg-[#14C8D4] text-[#001F3F] px-12 py-5 rounded-full font-black text-lg hover:bg-white transition-all duration-300 shadow-xl"
+                            className="inline-flex items-center gap-4 bg-[#1DB5A5] text-[#5E6470] px-12 py-5 rounded-full font-black text-lg hover:bg-white transition-all duration-300 shadow-xl"
                         >
                             Know More FAQ's
                         </a>
                         <a 
                             href="/contact"
-                            className="inline-flex items-center gap-4 bg-transparent border-2 border-white/20 text-white px-10 py-5 rounded-full font-black text-lg hover:border-[#14C8D4] hover:text-[#14C8D4] transition-all duration-300"
+                            className="inline-flex items-center gap-4 bg-transparent border-2 border-white/20 text-white px-10 py-5 rounded-full font-black text-lg hover:border-[#1DB5A5] hover:text-[#1DB5A5] transition-all duration-300"
                         >
                             Contact Support
                         </a>

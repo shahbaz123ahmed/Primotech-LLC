@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
 import Hero from '@/app/components/Home/Hero';
+import Features from '@/app/components/Home/Features';
 import LatestProducts from '@/app/components/Home/LatestProducts';
 import ProductSeriesShowcase from '@/app/components/Home/ProductSeriesShowcase';
 import IndustryRecognition from '@/app/components/Home/IndustryRecognition';
 import FAQ from '@/app/components/Home/FAQ';
 import HomeContact from '@/app/components/Home/HomeContact';
-import dbConnect from '@/lib/dbConnect';
-import Product from '@/models/Product';
+import { getLatestProducts } from '@/lib/catalog';
+
 
 export const metadata: Metadata = {
   title: "PrimoTech LLC | #1 CCTV & Security Camera Supplier in Dubai, UAE",
@@ -26,9 +27,9 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function Home() {
-  await dbConnect();
-  const products = await Product.find({ status: 'published' }).sort({ createdAt: -1 }).limit(10).lean();
+export default function Home() {
+  const products = getLatestProducts(10);
+
 
   // Comprehensive FAQPage schema — enables rich results + AI engine citations (Gemini, ChatGPT, Claude)
   const homeFaqSchema = {
@@ -48,15 +49,15 @@ export default async function Home() {
         "name": "Where is PrimoTech LLC located in Dubai?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "PrimoTech LLC is located at Shop 23, Musthafa Building, Satellite Market, Deira, Dubai, UAE. You can reach us at +971 52 879 6664 or email sales@primotech-llc.com. We are open Saturday to Thursday, 9 AM to 6 PM."
+          "text": "PrimoTech LLC is centrally located at Shop 23, Musthafa Building, Al Sabkha Road, near the Satellite Market in Deira, Dubai. We serve customers across the UAE, GCC, and the broader Middle East region."
         }
       },
       {
         "@type": "Question",
-        "name": "Is PrimoTech LLC an authorized Uniarch dealer in the UAE?",
+        "name": "Are you an authorized dealer for Uniarch and Hikvision?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, PrimoTech LLC is an authorized Uniarch dealer in the UAE. We supply genuine Uniarch products including IP cameras, NVRs, and complete wireless surveillance kits with full manufacturer warranty across Dubai and the Middle East."
+          "text": "Yes, PrimoTech LLC is an official authorized dealer for Uniarch and Hikvision products, ensuring 100% genuine equipment and full warranty support."
         }
       },
       {
@@ -110,7 +111,8 @@ export default async function Home() {
       />
       <h1 className="sr-only">PrimoTech LLC | Dubai&apos;s #1 CCTV &amp; Security Camera Supplier — Authorized Uniarch Dealer UAE</h1>
       <Hero />
-      <LatestProducts initialProducts={JSON.parse(JSON.stringify(products))} />
+      <Features />
+      <LatestProducts initialProducts={products} />
       <ProductSeriesShowcase />
       <IndustryRecognition />
       <FAQ />

@@ -17,33 +17,20 @@ const Footer = () => {
         if (!email.trim()) return;
 
         setIsSubmitting(true);
-        try {
-            const res = await fetch('/api/newsletter', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email.trim(), source: 'footer' })
-            });
-
-            const data = await res.json();
-            if (data.success) {
-                setIsSubscribed(true);
-                setEmail('');
-            } else {
-                alert(data.message || "Something went wrong. Please try again.");
-            }
-        } catch (error) {
-            console.error("Newsletter error:", error);
-            alert("An error occurred. Please try again.");
-        } finally {
+        // TODO: Connect to real newsletter service (e.g. Mailchimp, ConvertKit)
+        setTimeout(() => {
+            setIsSubscribed(true);
+            setEmail('');
             setIsSubmitting(false);
-        }
+        }, 800);
     };
 
+
     return (
-        <footer className="bg-white text-[#001F3F] border-t-[5px] border-[#001F3F] pt-24 pb-12 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+        <footer className="bg-white text-[#5E6470] border-t-[5px] border-[#5E6470] pt-24 pb-12 px-6 md:px-12 lg:px-24 relative overflow-hidden">
             {/* Background Decorative Glow */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#14C8D4]/5 rounded-full blur-[150px] -mr-64 -mt-64 pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#14C8D4]/5 rounded-full blur-[150px] -ml-64 -mb-64 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1DB5A5]/5 rounded-full blur-[150px] -mr-64 -mt-64 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#1DB5A5]/5 rounded-full blur-[150px] -ml-64 -mb-64 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Main Footer Grid */}
@@ -68,20 +55,20 @@ const Footer = () => {
                         </p>
 
                         <div className="space-y-6">
-                            <a href="mailto:sales@primotech-llc.com" className="flex items-center gap-5 text-gray-500 hover:text-[#14C8D4] transition-all group">
-                                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#001F3F] group-hover:bg-[#001F3F] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
+                            <a href="mailto:sales@primotech-llc.com" className="flex items-center gap-5 text-gray-500 hover:text-[#1DB5A5] transition-all group">
+                                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] group-hover:bg-[#5E6470] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
                                     <FaRegEnvelope className="text-xl" />
                                 </div>
                                 <span className="font-bold tracking-wide">sales@primotech-llc.com</span>
                             </a>
-                            <a href="tel:+971528796664" className="flex items-center gap-5 text-gray-500 hover:text-[#14C8D4] transition-all group">
-                                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#001F3F] group-hover:bg-[#001F3F] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
+                            <a href="tel:+971528796664" className="flex items-center gap-5 text-gray-500 hover:text-[#1DB5A5] transition-all group">
+                                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] group-hover:bg-[#5E6470] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
                                     <FaPhoneAlt className="text-xl" />
                                 </div>
                                 <span className="font-bold tracking-wide">+971 52 879 6664</span>
                             </a>
                             <div className="flex items-start gap-5 text-gray-500">
-                                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#001F3F] shrink-0 shadow-sm border border-gray-100">
+                                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] shrink-0 shadow-sm border border-gray-100">
                                     <FaMapMarkerAlt className="text-xl" />
                                 </div>
                                 <span className="font-bold leading-relaxed tracking-wide">
@@ -93,8 +80,8 @@ const Footer = () => {
 
                     {/* Column 2: Products (2 cols) */}
                     <div className="lg:col-span-2">
-                        <h3 className="text-[#001F3F] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
-                            <span className="w-8 h-[2px] bg-[#14C8D4]"></span>
+                        <h3 className="text-[#5E6470] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
+                            <span className="w-8 h-[2px] bg-[#1DB5A5]"></span>
                             Products
                         </h3>
                         <ul className="space-y-6">
@@ -103,8 +90,8 @@ const Footer = () => {
                                 "Network Switches", "Accessories"
                             ].map((item) => (
                                 <li key={item}>
-                                    <a href="#" className="text-gray-500 hover:text-[#001F3F] transition-all text-[15px] font-bold flex items-center gap-3 group">
-                                        <FaChevronRight className="text-[10px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#14C8D4]" />
+                                    <a href="#" className="text-gray-500 hover:text-[#5E6470] transition-all text-[15px] font-bold flex items-center gap-3 group">
+                                        <FaChevronRight className="text-[10px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#1DB5A5]" />
                                         {item}
                                     </a>
                                 </li>
@@ -115,8 +102,8 @@ const Footer = () => {
                     {/* Column 3: Support & Company (3 cols) */}
                     <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-12 lg:gap-4">
                         <div>
-                            <h3 className="text-[#001F3F] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
-                                <span className="w-8 h-[2px] bg-[#14C8D4]"></span>
+                            <h3 className="text-[#5E6470] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
+                                <span className="w-8 h-[2px] bg-[#1DB5A5]"></span>
                                 Support
                             </h3>
                             <ul className="space-y-6">
@@ -126,8 +113,8 @@ const Footer = () => {
                                     { label: "Tips & Guides", href: "/tips" }
                                 ].map((item) => (
                                     <li key={item.label}>
-                                        <a href={item.href} className="text-gray-500 hover:text-[#001F3F] transition-all text-[15px] font-bold flex items-center gap-3 group">
-                                            <FaChevronRight className="text-[10px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#14C8D4]" />
+                                        <a href={item.href} className="text-gray-500 hover:text-[#5E6470] transition-all text-[15px] font-bold flex items-center gap-3 group">
+                                            <FaChevronRight className="text-[10px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#1DB5A5]" />
                                             {item.label}
                                         </a>
                                     </li>
@@ -135,8 +122,8 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-[#001F3F] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
-                                <span className="w-8 h-[2px] bg-[#14C8D4]"></span>
+                            <h3 className="text-[#5E6470] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
+                                <span className="w-8 h-[2px] bg-[#1DB5A5]"></span>
                                 Company
                             </h3>
                             <ul className="space-y-6">
@@ -146,8 +133,8 @@ const Footer = () => {
                                     { label: "Partner", href: "/partner" }
                                 ].map((item) => (
                                     <li key={item.label}>
-                                        <a href={item.href} className="text-gray-500 hover:text-[#001F3F] transition-all text-[15px] font-bold flex items-center gap-3 group">
-                                            <FaChevronRight className="text-[10px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#14C8D4]" />
+                                        <a href={item.href} className="text-gray-500 hover:text-[#5E6470] transition-all text-[15px] font-bold flex items-center gap-3 group">
+                                            <FaChevronRight className="text-[10px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#1DB5A5]" />
                                             {item.label}
                                         </a>
                                     </li>
@@ -158,8 +145,8 @@ const Footer = () => {
 
                     {/* Column 4: Newsletter (3 cols) */}
                     <div className="lg:col-span-3 space-y-10">
-                        <h3 className="text-[#001F3F] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
-                            <span className="w-8 h-[2px] bg-[#14C8D4]"></span>
+                        <h3 className="text-[#5E6470] font-black text-xs uppercase tracking-[0.4em] mb-12 flex items-center gap-4">
+                            <span className="w-8 h-[2px] bg-[#1DB5A5]"></span>
                             Newsletter
                         </h3>
                         <p className="text-gray-500 text-[15px] font-bold leading-relaxed">
@@ -180,12 +167,12 @@ const Footer = () => {
                                     placeholder="Your Email Address"
                                     required
                                     disabled={isSubmitting}
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:outline-none focus:border-[#14C8D4] focus:bg-white transition-all font-bold placeholder:text-gray-400 disabled:opacity-50"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:outline-none focus:border-[#1DB5A5] focus:bg-white transition-all font-bold placeholder:text-gray-400 disabled:opacity-50"
                                 />
                                 <button 
                                     type="submit" 
                                     disabled={isSubmitting}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#001F3F] rounded-xl flex items-center justify-center text-white hover:bg-[#14C8D4] hover:text-[#001F3F] transition-all shadow-xl group-hover:scale-105 disabled:opacity-50"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#5E6470] rounded-xl flex items-center justify-center text-white hover:bg-[#1DB5A5] hover:text-[#5E6470] transition-all shadow-xl group-hover:scale-105 disabled:opacity-50"
                                 >
                                     {isSubmitting ? (
                                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -203,11 +190,11 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
                     <p className="text-gray-400 text-sm font-bold tracking-wide">
-                        Copyright © 2026 <span className="text-[#001F3F]">PrimoTech</span>. All rights reserved.
+                        Copyright © 2026 <span className="text-[#5E6470]">PrimoTech</span>. All rights reserved.
                     </p>
                     <div className="flex gap-12">
-                        <a href="/privacy" className="text-gray-400 hover:text-[#001F3F] text-sm font-bold transition-all tracking-wide">Privacy Policy</a>
-                        <a href="/terms" className="text-gray-400 hover:text-[#001F3F] text-sm font-bold transition-all tracking-wide">Terms of Service</a>
+                        <a href="/privacy" className="text-gray-400 hover:text-[#5E6470] text-sm font-bold transition-all tracking-wide">Privacy Policy</a>
+                        <a href="/terms" className="text-gray-400 hover:text-[#5E6470] text-sm font-bold transition-all tracking-wide">Terms of Service</a>
                     </div>
                 </div>
             </div>

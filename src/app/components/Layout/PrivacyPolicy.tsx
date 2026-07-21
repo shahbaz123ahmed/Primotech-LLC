@@ -19,25 +19,25 @@ export default function PrivacyPolicy() {
     return (
         <main className="min-h-screen bg-white">
             {/* Hero Banner */}
-            <section className="bg-[#001F3F] pt-36 pb-20 px-6 relative overflow-hidden">
+            <section className="bg-[#5E6470] pt-36 pb-20 px-6 relative overflow-hidden">
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#14C8D4]/10 rounded-full blur-[120px] -mr-64 -mt-32" />
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#14C8D4]/10 rounded-full blur-[100px] -ml-32 -mb-32" />
+                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1DB5A5]/10 rounded-full blur-[120px] -mr-64 -mt-32" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1DB5A5]/10 rounded-full blur-[100px] -ml-32 -mb-32" />
                 </div>
                 <div className="max-w-4xl mx-auto relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 bg-[#14C8D4]/10 border border-[#14C8D4]/30 text-[#14C8D4] px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8">
+                    <div className="inline-flex items-center gap-2 bg-[#1DB5A5]/10 border border-[#1DB5A5]/30 text-[#1DB5A5] px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8">
                         Legal
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                        Privacy <span className="text-[#14C8D4]">Policy</span>
+                        Privacy <span className="text-[#1DB5A5]">Policy</span>
                     </h1>
                     <p className="text-gray-300 text-lg font-medium max-w-2xl mx-auto">
                         Protecting your personal data and privacy is our highest priority.
                     </p>
                     <p className="mt-6 text-gray-400 text-sm font-semibold">
-                        Effective Date: <span className="text-[#14C8D4]">July 2, 2025</span>
+                        Effective Date: <span className="text-[#1DB5A5]">July 2, 2025</span>
                         &nbsp;|&nbsp;
-                        Last Updated: <span className="text-[#14C8D4]">July 2, 2025</span>
+                        Last Updated: <span className="text-[#1DB5A5]">July 2, 2025</span>
                     </p>
                 </div>
             </section>
@@ -46,10 +46,10 @@ export default function PrivacyPolicy() {
 
                 {/* Introduction */}
                 <div className="mb-14">
-                    <h2 className="text-2xl font-black text-[#001F3F] mb-5">Introduction</h2>
+                    <h2 className="text-2xl font-black text-[#5E6470] mb-5">Introduction</h2>
                     <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
                         <p>
-                            At <strong className="text-[#001F3F]">PrimoTech LLC</strong> (&quot;PrimoTech&quot; or &quot;we/us&quot;), protecting your personal data and privacy remains our highest priority. This Privacy Policy, effective as of <strong className="text-[#001F3F]">July 2, 2025</strong>, explains how we collect, use, share, store, and safeguard your information. By reviewing this document, you will understand our data handling practices as they relate to the PrimoTech products and services you use.
+                            At <strong className="text-[#5E6470]">PrimoTech LLC</strong> (&quot;PrimoTech&quot; or &quot;we/us&quot;), protecting your personal data and privacy remains our highest priority. This Privacy Policy, effective as of <strong className="text-[#5E6470]">July 2, 2025</strong>, explains how we collect, use, share, store, and safeguard your information. By reviewing this document, you will understand our data handling practices as they relate to the PrimoTech products and services you use.
                         </p>
                         <p>
                             We encourage you to read and understand this Privacy Policy before using any PrimoTech services. Your continued use of our services after July 2, 2025, indicates your acceptance of the practices described herein. If you disagree with any part of this policy, please discontinue use of PrimoTech products and services immediately.
@@ -59,15 +59,15 @@ export default function PrivacyPolicy() {
                         </p>
                         <p>
                             If you have any questions or feedback regarding this Privacy Policy or your personal data, please contact us at{' '}
-                            <a href="mailto:sales@primotech-llc.com" className="text-[#14C8D4] hover:underline font-bold">sales@primotech-llc.com</a>.
+                            <a href="mailto:sales@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">sales@primotech-llc.com</a>.
                         </p>
                     </div>
                 </div>
 
                 {/* Table of Contents */}
                 <div className="bg-[#f8fafc] border border-gray-100 rounded-3xl p-8 mb-16">
-                    <h3 className="text-[#001F3F] font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
-                        <span className="w-8 h-[2px] bg-[#14C8D4]" />
+                    <h3 className="text-[#5E6470] font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
+                        <span className="w-8 h-[2px] bg-[#1DB5A5]" />
                         This Policy Will Help You Understand The Following
                     </h3>
                     <ol className="space-y-3">
@@ -75,9 +75,9 @@ export default function PrivacyPolicy() {
                             <li key={item.num}>
                                 <a
                                     href={`#section-${item.num}`}
-                                    className="flex items-center gap-3 text-gray-600 hover:text-[#001F3F] font-semibold transition-colors group"
+                                    className="flex items-center gap-3 text-gray-600 hover:text-[#5E6470] font-semibold transition-colors group"
                                 >
-                                    <span className="w-8 h-8 rounded-lg bg-[#001F3F] text-[#14C8D4] text-xs font-black flex items-center justify-center flex-shrink-0 group-hover:bg-[#14C8D4] group-hover:text-[#001F3F] transition-colors">
+                                    <span className="w-8 h-8 rounded-lg bg-[#5E6470] text-[#1DB5A5] text-xs font-black flex items-center justify-center flex-shrink-0 group-hover:bg-[#1DB5A5] group-hover:text-[#5E6470] transition-colors">
                                         {item.num}
                                     </span>
                                     {item.label}
@@ -96,10 +96,10 @@ export default function PrivacyPolicy() {
                         <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
                             <p>As of July 2, 2025, when you interact with PrimoTech services, we may collect both personal and non-personal information.</p>
                             <p>
-                                <strong className="text-[#001F3F]">Personal information</strong> means any data relating to an identifiable individual that could reveal their identity when combined with other details. This includes, but is not limited to, names, gender, identification numbers, birthdates, addresses, phone numbers, email addresses, mailing addresses, and personal video content.
+                                <strong className="text-[#5E6470]">Personal information</strong> means any data relating to an identifiable individual that could reveal their identity when combined with other details. This includes, but is not limited to, names, gender, identification numbers, birthdates, addresses, phone numbers, email addresses, mailing addresses, and personal video content.
                             </p>
                             <p>
-                                <strong className="text-[#001F3F]">Non-personal information</strong> refers to data that cannot directly identify a specific individual. Examples include professional details, language preferences, postal codes, area codes, serial numbers, URLs, automatically logged access data (browser type, domain, browsing patterns, referring pages, IP addresses, navigation paths), unique product identifiers, video content without personal elements, device connection location and time zone, geographic location, mobile carrier identification, device software platforms, and hardware details.
+                                <strong className="text-[#5E6470]">Non-personal information</strong> refers to data that cannot directly identify a specific individual. Examples include professional details, language preferences, postal codes, area codes, serial numbers, URLs, automatically logged access data (browser type, domain, browsing patterns, referring pages, IP addresses, navigation paths), unique product identifiers, video content without personal elements, device connection location and time zone, geographic location, mobile carrier identification, device software platforms, and hardware details.
                             </p>
                         </div>
                     </section>
@@ -146,7 +146,7 @@ export default function PrivacyPolicy() {
                                         'Job applications via our website (resume info)',
                                     ].map((item, i) => (
                                         <li key={i} className="flex items-start gap-2">
-                                            <span className="mt-1.5 w-2 h-2 rounded-full bg-[#14C8D4] flex-shrink-0" />
+                                            <span className="mt-1.5 w-2 h-2 rounded-full bg-[#1DB5A5] flex-shrink-0" />
                                             {item}
                                         </li>
                                     ))}
@@ -181,7 +181,7 @@ export default function PrivacyPolicy() {
                                     'Complying with legal obligations and protecting our interests',
                                 ].map((item, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#14C8D4] flex-shrink-0" />
+                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#1DB5A5] flex-shrink-0" />
                                         {item}
                                     </li>
                                 ))}
@@ -193,8 +193,8 @@ export default function PrivacyPolicy() {
                     <section id="section-IV">
                         <SectionTitle num="IV" title="Sharing Of Information" />
                         <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
-                            <div className="bg-[#001F3F]/5 border-l-4 border-[#14C8D4] rounded-xl p-5">
-                                <p className="font-black text-[#001F3F]">We do not sell your personal information to third parties and never will.</p>
+                            <div className="bg-[#5E6470]/5 border-l-4 border-[#1DB5A5] rounded-xl p-5">
+                                <p className="font-black text-[#5E6470]">We do not sell your personal information to third parties and never will.</p>
                             </div>
                             <p>Access to your personal data is limited to those who need it, and our staff are required to maintain confidentiality and protect your information as described in this policy.</p>
                             <p>We may share your personal information in these cases:</p>
@@ -207,7 +207,7 @@ export default function PrivacyPolicy() {
                                     'When required by law (e.g., national security, public safety, investigations, emergencies, legal proceedings)',
                                 ].map((item, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#14C8D4] flex-shrink-0" />
+                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#1DB5A5] flex-shrink-0" />
                                         {item}
                                     </li>
                                 ))}
@@ -223,7 +223,7 @@ export default function PrivacyPolicy() {
                             <p>Your personal data is stored only for the purposes described in this policy and retained as long as you use our services, unless a longer period is required by law or you authorize it.</p>
 
                             <SubHeading text="(II) Data protection" />
-                            <p>We maintain a dedicated security team and implement administrative, technical, and physical safeguards, including encryption, access controls, internal audits, and regular security assessments. We hold <strong className="text-[#001F3F]">ISO27001 certification</strong> and use third-party security evaluations. However, no system is completely secure, and we cannot guarantee absolute protection.</p>
+                            <p>We maintain a dedicated security team and implement administrative, technical, and physical safeguards, including encryption, access controls, internal audits, and regular security assessments. We hold <strong className="text-[#5E6470]">ISO27001 certification</strong> and use third-party security evaluations. However, no system is completely secure, and we cannot guarantee absolute protection.</p>
                             <p>You are responsible for keeping your login credentials confidential. In the event of a security incident, we will notify you via push notification or announcement.</p>
                         </div>
                     </section>
@@ -232,7 +232,7 @@ export default function PrivacyPolicy() {
                     <section id="section-VI">
                         <SectionTitle num="VI" title="Your Rights" />
                         <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
-                            <p>As of July 2, 2025, you may access and update your personal information through your account or by contacting <a href="mailto:sales@primotech-llc.com" className="text-[#14C8D4] hover:underline font-bold">sales@primotech-llc.com</a>. Subject to applicable law, you have the right to:</p>
+                            <p>As of July 2, 2025, you may access and update your personal information through your account or by contacting <a href="mailto:sales@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">sales@primotech-llc.com</a>. Subject to applicable law, you have the right to:</p>
                             <ul className="space-y-2 pl-2">
                                 {[
                                     'Access or correct your personal data',
@@ -243,7 +243,7 @@ export default function PrivacyPolicy() {
                                     'Opt out of direct marketing and cookies',
                                 ].map((item, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#14C8D4] flex-shrink-0" />
+                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#1DB5A5] flex-shrink-0" />
                                         {item}
                                     </li>
                                 ))}
@@ -264,7 +264,7 @@ export default function PrivacyPolicy() {
                                     'Partner services for enhanced features',
                                 ].map((item, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#14C8D4] flex-shrink-0" />
+                                        <span className="mt-1.5 w-2 h-2 rounded-full bg-[#1DB5A5] flex-shrink-0" />
                                         {item}
                                     </li>
                                 ))}
@@ -301,28 +301,28 @@ export default function PrivacyPolicy() {
                     <section id="section-XI">
                         <SectionTitle num="XI" title="Contact Us" />
                         <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
-                            <p>For any questions or comments about this Privacy Policy or your personal data, contact us at <a href="mailto:sales@primotech-llc.com" className="text-[#14C8D4] hover:underline font-bold">sales@primotech-llc.com</a>. We will respond within <strong className="text-[#001F3F]">15 business days</strong> after verifying your identity.</p>
+                            <p>For any questions or comments about this Privacy Policy or your personal data, contact us at <a href="mailto:sales@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">sales@primotech-llc.com</a>. We will respond within <strong className="text-[#5E6470]">15 business days</strong> after verifying your identity.</p>
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <a href="mailto:sales@primotech-llc.com" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#14C8D4] transition-colors group">
-                                    <div className="w-11 h-11 bg-[#001F3F] rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-5 h-5 text-[#14C8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <a href="mailto:sales@primotech-llc.com" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#1DB5A5] transition-colors group">
+                                    <div className="w-11 h-11 bg-[#5E6470] rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-5 h-5 text-[#1DB5A5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
                                     </div>
                                     <div>
                                         <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Email</p>
-                                        <p className="text-[#001F3F] font-bold text-sm">sales@primotech-llc.com</p>
+                                        <p className="text-[#5E6470] font-bold text-sm">sales@primotech-llc.com</p>
                                     </div>
                                 </a>
-                                <a href="tel:+971528796664" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#14C8D4] transition-colors group">
-                                    <div className="w-11 h-11 bg-[#001F3F] rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-5 h-5 text-[#14C8D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <a href="tel:+971528796664" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#1DB5A5] transition-colors group">
+                                    <div className="w-11 h-11 bg-[#5E6470] rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-5 h-5 text-[#1DB5A5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
                                     </div>
                                     <div>
                                         <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Phone</p>
-                                        <p className="text-[#001F3F] font-bold text-sm">+971 52 879 6664</p>
+                                        <p className="text-[#5E6470] font-bold text-sm">+971 52 879 6664</p>
                                     </div>
                                 </a>
                             </div>
@@ -342,20 +342,20 @@ export default function PrivacyPolicy() {
                 {/* Last Updated Footer */}
                 <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p className="text-gray-400 text-sm font-semibold">
-                        Last Updated: <span className="text-[#001F3F]">July 02, 2025</span>
+                        Last Updated: <span className="text-[#5E6470]">July 02, 2025</span>
                     </p>
-                    <a href="/terms" className="text-sm font-bold text-[#14C8D4] hover:underline">
+                    <a href="/terms" className="text-sm font-bold text-[#1DB5A5] hover:underline">
                         View Terms of Service →
                     </a>
                 </div>
 
                 {/* CTA */}
-                <div className="mt-10 bg-[#001F3F] rounded-3xl p-10 text-center">
+                <div className="mt-10 bg-[#5E6470] rounded-3xl p-10 text-center">
                     <h3 className="text-2xl font-black text-white mb-3">Have Questions?</h3>
                     <p className="text-gray-300 font-medium mb-8">Our team is ready to help clarify any concerns about your data privacy.</p>
                     <a
                         href="/contact"
-                        className="inline-flex items-center gap-3 bg-[#14C8D4] text-[#001F3F] px-8 py-4 rounded-full font-black text-lg hover:bg-white transition-all duration-300 hover:shadow-xl"
+                        className="inline-flex items-center gap-3 bg-[#1DB5A5] text-[#5E6470] px-8 py-4 rounded-full font-black text-lg hover:bg-white transition-all duration-300 hover:shadow-xl"
                     >
                         Contact Us
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -373,24 +373,24 @@ export default function PrivacyPolicy() {
 function SectionTitle({ num, title }: { num: string; title: string }) {
     return (
         <div className="flex items-center gap-4 mb-6">
-            <div className="w-11 h-11 bg-[#001F3F] rounded-xl flex items-center justify-center text-[#14C8D4] font-black text-xs flex-shrink-0">
+            <div className="w-11 h-11 bg-[#5E6470] rounded-xl flex items-center justify-center text-[#1DB5A5] font-black text-xs flex-shrink-0">
                 {num}
             </div>
-            <h2 className="text-xl md:text-2xl font-black text-[#001F3F]">{title}</h2>
+            <h2 className="text-xl md:text-2xl font-black text-[#5E6470]">{title}</h2>
         </div>
     );
 }
 
 function SubHeading({ text }: { text: string }) {
     return (
-        <p className="font-black text-[#001F3F] text-[15px] mt-4">{text}</p>
+        <p className="font-black text-[#5E6470] text-[15px] mt-4">{text}</p>
     );
 }
 
 function SubSection({ num, title, children }: { num: string; title: string; children: React.ReactNode }) {
     return (
-        <div className="pl-4 border-l-2 border-[#14C8D4]/40">
-            <p className="font-black text-[#001F3F] mb-1">
+        <div className="pl-4 border-l-2 border-[#1DB5A5]/40">
+            <p className="font-black text-[#5E6470] mb-1">
                 {num}. {title}
             </p>
             <div className="text-gray-600">{children}</div>

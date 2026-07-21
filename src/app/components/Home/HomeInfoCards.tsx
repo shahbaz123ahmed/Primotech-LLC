@@ -58,10 +58,10 @@ const HomeInfoCards = () => {
                         <div className={`w-20 h-20 bg-gradient-to-br ${card.color} rounded-3xl flex items-center justify-center text-white mb-10 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                             <card.icon className="text-3xl" />
                         </div>
-                        <span className="text-[#14C8D4] font-black uppercase tracking-[0.3em] text-[10px] mb-4">
+                        <span className="text-[#1DB5A5] font-black uppercase tracking-[0.3em] text-[10px] mb-4">
                             {card.badge}
                         </span>
-                        <h3 className="text-3xl font-black text-[#001F3F] mb-6 leading-tight tracking-tighter">
+                        <h3 className="text-3xl font-black text-[#5E6470] mb-6 leading-tight tracking-tighter">
                             {card.title}
                         </h3>
                         <p className="text-gray-500 text-base font-medium leading-relaxed mb-10 flex-grow">
@@ -70,13 +70,13 @@ const HomeInfoCards = () => {
                         <div className="pt-8 border-t border-gray-50">
                             <a 
                                 href={card.linkHref}
-                                className="inline-flex items-center gap-4 text-[#001F3F] font-black text-lg group/link"
+                                className="inline-flex items-center gap-4 text-[#5E6470] font-black text-lg group/link"
                             >
                                 <span className="relative">
                                     {card.linkText}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-[3px] bg-[#14C8D4] transition-all duration-300 group-hover/link:w-full"></span>
+                                    <span className="absolute -bottom-1 left-0 w-0 h-[3px] bg-[#1DB5A5] transition-all duration-300 group-hover/link:w-full"></span>
                                 </span>
-                                <div className="w-10 h-10 rounded-full bg-[#f0fdfe] flex items-center justify-center text-[#14C8D4] group-hover/link:bg-[#14C8D4] group-hover/link:text-white transition-all">
+                                <div className="w-10 h-10 rounded-full bg-[#f0fdfe] flex items-center justify-center text-[#1DB5A5] group-hover/link:bg-[#1DB5A5] group-hover/link:text-white transition-all">
                                     <FaArrowRight className="text-sm group-hover/link:translate-x-1 transition-transform" />
                                 </div>
                             </a>

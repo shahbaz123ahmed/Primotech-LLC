@@ -37,12 +37,12 @@ const WhyChooseUs = () => {
             id: 2,
             icon: FaBullseye,
             iconBg: 'bg-[#f0fdfe]',
-            iconColor: 'text-[#3B7597]',
+            iconColor: 'text-[#78828D]',
             title: 'Industrial Performance',
             description: 'Best-in-class reliability engineered for demanding industrial environments with maximum uptime guarantee.',
             tags: [
-                { color: 'bg-[#3B7597]', text: 'Industrial Grade' },
-                { color: 'bg-[#3B7597]', text: '99.9% Uptime' }
+                { color: 'bg-[#78828D]', text: 'Industrial Grade' },
+                { color: 'bg-[#78828D]', text: '99.9% Uptime' }
             ]
         },
         {
@@ -54,7 +54,7 @@ const WhyChooseUs = () => {
             description: 'Backed by tier-one manufacturers with global support, ensuring quality standards and technical excellence.',
             tags: [
                 { color: 'bg-green-500', text: 'Global Support' },
-                { color: 'bg-[#3B7597]', text: 'Quality Assured' }
+                { color: 'bg-[#78828D]', text: 'Quality Assured' }
             ]
         }
     ];
@@ -62,19 +62,19 @@ const WhyChooseUs = () => {
     return (
         <section className="py-24 px-6 lg:px-16 max-w-7xl mx-auto relative overflow-hidden">
             {/* Background Decorative Element */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#3B7597]/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#78828D]/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
 
             {/* ===== HEADER ===== */}
             <div className="text-center mb-20">
                 {/* Industry Leader Badge */}
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-[#f0fdfe] rounded-full mb-8 border border-[#3B7597]/20 shadow-sm transition-all hover:shadow-md">
-                    <FaCheckCircle className="text-[#3B7597] text-lg" />
-                    <span className="text-sm font-black text-[#001F3F] uppercase tracking-widest">Industry Leader</span>
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-[#f0fdfe] rounded-full mb-8 border border-[#78828D]/20 shadow-sm transition-all hover:shadow-md">
+                    <FaCheckCircle className="text-[#78828D] text-lg" />
+                    <span className="text-sm font-black text-[#5E6470] uppercase tracking-widest">Industry Leader</span>
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="text-5xl lg:text-7xl font-black text-[#001F3F] mb-6 tracking-tighter leading-tight">
-                    Why Choose <span className="text-[#3B7597]">PrimoTech</span>
+                <h1 className="text-5xl lg:text-7xl font-black text-[#5E6470] mb-6 tracking-tighter leading-tight">
+                    Why Choose <span className="text-[#78828D]">PrimoTech</span>
                 </h1>
 
                 {/* Subtitle Description */}
@@ -95,7 +95,7 @@ const WhyChooseUs = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-2xl font-black text-[#001F3F] mb-4">
+                        <h3 className="text-2xl font-black text-[#5E6470] mb-4">
                             {feature.title}
                         </h3>
 
@@ -109,7 +109,7 @@ const WhyChooseUs = () => {
                             {feature.tags.map((tag, index) => (
                                 <div key={index} className="flex items-center gap-2.5 group/tag">
                                     <span className={`w-2 h-2 ${tag.color} rounded-full flex-shrink-0 group-hover/tag:scale-150 transition-transform`}></span>
-                                    <span className="text-sm font-bold text-gray-600 group-hover/tag:text-[#001F3F] transition-colors">{tag.text}</span>
+                                    <span className="text-sm font-bold text-gray-600 group-hover/tag:text-[#5E6470] transition-colors">{tag.text}</span>
                                 </div>
                             ))}
                         </div>

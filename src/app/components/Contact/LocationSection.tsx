@@ -9,21 +9,21 @@ const LocationSection = () => {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col lg:flex-row gap-16 items-center">
                     <div className="lg:w-1/2">
-                        <div className="inline-flex items-center gap-2 bg-[#001F3F]/5 border border-[#001F3F]/10 px-5 py-2.5 rounded-full mb-8">
-                            <FaMapMarkerAlt className="text-[#14C8D4] text-sm" />
-                            <span className="text-[#001F3F] font-black text-xs uppercase tracking-[0.25em]">Visit Our Showroom</span>
+                        <div className="inline-flex items-center gap-2 bg-[#5E6470]/5 border border-[#5E6470]/10 px-5 py-2.5 rounded-full mb-8">
+                            <FaMapMarkerAlt className="text-[#1DB5A5] text-sm" />
+                            <span className="text-[#5E6470] font-black text-xs uppercase tracking-[0.25em]">Visit Our Showroom</span>
                         </div>
-                        <h2 className="text-5xl font-black text-[#001F3F] mb-8 leading-tight">Find Us in <span className="text-[#14C8D4]">Dubai</span></h2>
+                        <h2 className="text-5xl font-black text-[#5E6470] mb-8 leading-tight">Find Us in <span className="text-[#1DB5A5]">Dubai</span></h2>
                         <p className="text-gray-500 text-xl font-medium leading-relaxed mb-10">
                             Visit our flagship showroom to see Primotech products in action and get hands-on consultation from our security experts. We provide live demonstrations of our AI-powered surveillance systems.
                         </p>
                         
                         <div className="bg-[#f8fafc] p-10 rounded-[3rem] border border-gray-100 flex items-start gap-8">
                             <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-50">
-                                <FaCompass className="text-[#14C8D4] text-2xl" />
+                                <FaCompass className="text-[#1DB5A5] text-2xl" />
                             </div>
                             <div>
-                                <h4 className="text-xl font-black text-[#001F3F] mb-2">Dubai Office</h4>
+                                <h4 className="text-xl font-black text-[#5E6470] mb-2">Dubai Office</h4>
                                 <p className="text-gray-500 font-medium leading-relaxed mb-6">
                                     Shop 23, Musthafa Building, Satellite Market, Deira, Dubai
                                 </p>
@@ -31,7 +31,7 @@ const LocationSection = () => {
                                     href="https://www.google.com/maps/place/Mustafa+Building+Materials+Company/@25.190361,55.3739898,797m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3e5f434b80f4bb19:0x2926ff4d4ba2c4f!8m2!3d25.190361!4d55.3739898!16s%2Fg%2F11bbwnj9np?hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
-                                    className="text-[#14C8D4] font-black uppercase tracking-widest text-xs hover:text-[#001F3F] transition-colors"
+                                    className="text-[#1DB5A5] font-black uppercase tracking-widest text-xs hover:text-[#5E6470] transition-colors"
                                 >
                                     Open in Google Maps
                                 </a>

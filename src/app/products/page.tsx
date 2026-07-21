@@ -1,8 +1,7 @@
 import ProductsHero from '@/app/components/Products/ProductsHero';
 import CategoriesListing from '@/app/components/Categories/CategoriesListing';
 import ProductsCTA from '@/app/components/Products/ProductsCTA';
-import dbConnect from '@/lib/dbConnect';
-import Category from '@/models/Category';
+import { getAllCategories } from '@/lib/catalog';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -31,9 +30,8 @@ export const metadata: Metadata = {
     },
 };
 
-const Products = async () => {
-    await dbConnect();
-    const categories = await Category.find({ status: 'published' }).sort({ order: 1 }).lean();
+const Products = () => {
+    const categories = getAllCategories();
 
     // CollectionPage Schema
     const collectionSchema = {
@@ -44,7 +42,7 @@ const Products = async () => {
         "url": "https://primotech-llc.com/products",
         "mainEntity": {
             "@type": "ItemList",
-            "itemListElement": categories.map((cat: any, index: number) => ({
+            "itemListElement": categories.map((cat, index) => ({
                 "@type": "ListItem",
                 "position": index + 1,
                 "url": `https://primotech-llc.com/products/${cat.slug}`,
@@ -60,7 +58,7 @@ const Products = async () => {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
             />
             <ProductsHero />
-            <CategoriesListing initialCategories={JSON.parse(JSON.stringify(categories))} />
+            <CategoriesListing initialCategories={categories} />
             <ProductsCTA />
         </main>
     );

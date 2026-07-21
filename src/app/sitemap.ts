@@ -1,22 +1,10 @@
 import { MetadataRoute } from 'next';
-import dbConnect from '@/lib/dbConnect';
-import Category from '@/models/Category';
-import SubCategory from '@/models/SubCategory';
-import Product from '@/models/Product';
+import { getAllCategories, getSubcategoriesByCategory, getProductsBySubcategory } from '@/lib/catalog';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://primotech-llc.com';
   
-  await dbConnect();
-  const categories = await Category.find({ status: 'published' });
-  const subcategories = await SubCategory.find({ status: 'published' });
-  const products = await Product.find({ status: 'published' });
-
-  const slugify = (text: string) => 
-    text.toLowerCase()
-        .replace(/&/g, 'and')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
+  const categories = getAllCategories();
 
   const staticRoutes = [
     '',
@@ -44,26 +32,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const subcategoryRoutes = subcategories.map((sub) => {
-    const parentSlug = slugify(sub.parentCategory);
-    return {
-      url: `${baseUrl}/products/${parentSlug}/${sub.slug}`,
+  const subcategoryRoutes = categories.flatMap((cat) =>
+    getSubcategoriesByCategory(cat.slug).map((sub) => ({
+      url: `${baseUrl}/products/${cat.slug}/${sub.slug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
-    };
-  });
+    }))
+  );
 
-  const productRoutes = products.map((prod) => {
-    const categorySlug = slugify(prod.category);
-    const subcategorySlug = slugify(prod.subCategory);
-    return {
-      url: `${baseUrl}/products/${categorySlug}/${subcategorySlug}/${prod.slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.5,
-    };
-  });
+  const productRoutes = categories.flatMap((cat) =>
+    getSubcategoriesByCategory(cat.slug).flatMap((sub) =>
+      getProductsBySubcategory(sub.slug).map((prod) => ({
+        url: `${baseUrl}/products/${cat.slug}/${sub.slug}/${prod.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.5,
+      }))
+    )
+  );
 
   return [...staticRoutes, ...categoryRoutes, ...subcategoryRoutes, ...productRoutes];
 }

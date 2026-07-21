@@ -7,16 +7,16 @@ const PartnerContent = () => {
     return (
         <main className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="relative py-24 lg:py-32 bg-[#001F3F] overflow-hidden">
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#14C8D4]/5 rounded-full blur-[150px] -mr-64 -mt-64"></div>
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#14C8D4]/5 rounded-full blur-[150px] -ml-64 -mb-64"></div>
+            <section className="relative py-24 lg:py-32 bg-[#5E6470] overflow-hidden">
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#1DB5A5]/5 rounded-full blur-[150px] -mr-64 -mt-64"></div>
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#1DB5A5]/5 rounded-full blur-[150px] -ml-64 -mb-64"></div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-                    <div className="inline-flex items-center gap-3 px-6 py-2 bg-[#14C8D4]/10 rounded-full mb-10 border border-[#14C8D4]/20 backdrop-blur-sm">
-                        <span className="text-[#14C8D4] font-black uppercase tracking-[0.4em] text-[10px]">Partnership Program</span>
+                    <div className="inline-flex items-center gap-3 px-6 py-2 bg-[#1DB5A5]/10 rounded-full mb-10 border border-[#1DB5A5]/20 backdrop-blur-sm">
+                        <span className="text-[#1DB5A5] font-black uppercase tracking-[0.4em] text-[10px]">Partnership Program</span>
                     </div>
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-10 tracking-tighter leading-[0.85]">
-                        Become Our <br/> <span className="text-[#14C8D4]">Partner</span>
+                    <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-10 tracking-tighter leading-tight">
+                        Become Our <br/> <span className="text-[#1DB5A5]">Partner</span>
                     </h1>
                     <p className="text-gray-400 text-xl md:text-2xl max-w-4xl mx-auto font-medium leading-relaxed">
                         Join our growing network of trusted partners and distributors. We offer comprehensive support, training programs, and marketing resources to help you succeed in the security technology market.
@@ -45,10 +45,10 @@ const PartnerContent = () => {
                         }
                     ].map((benefit, idx) => (
                         <div key={idx} className="group bg-gray-50 p-12 rounded-[3rem] border border-gray-100 transition-all duration-500 hover:bg-white hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] hover:-translate-y-4">
-                            <div className="w-16 h-16 bg-[#001F3F] rounded-2xl flex items-center justify-center text-[#14C8D4] mb-10 shadow-xl group-hover:bg-[#14C8D4] group-hover:text-[#001F3F] transition-all duration-500">
+                            <div className="w-16 h-16 bg-[#5E6470] rounded-2xl flex items-center justify-center text-[#1DB5A5] mb-10 shadow-xl group-hover:bg-[#1DB5A5] group-hover:text-[#5E6470] transition-all duration-500">
                                 <benefit.icon className="text-2xl" />
                             </div>
-                            <h3 className="text-2xl font-black text-[#001F3F] mb-6">{benefit.title}</h3>
+                            <h3 className="text-2xl font-black text-[#5E6470] mb-6">{benefit.title}</h3>
                             <p className="text-gray-500 font-medium leading-relaxed">
                                 {benefit.desc}
                             </p>
@@ -71,8 +71,8 @@ const PartnerContent = () => {
                                     className="object-contain p-8 group-hover:scale-110 transition-transform duration-500"
                                 />
                             </div>
-                            <h2 className="text-3xl font-black text-[#001F3F] mb-2">Lovosis Technology</h2>
-                            <span className="text-[#14C8D4] font-black uppercase tracking-[0.3em] text-[10px]">Tier-One Partner</span>
+                            <h2 className="text-3xl font-black text-[#5E6470] mb-2">Lovosis Technology</h2>
+                            <span className="text-[#1DB5A5] font-black uppercase tracking-[0.3em] text-[10px]">Tier-One Partner</span>
                         </div>
                         <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div className="space-y-8">
@@ -85,23 +85,23 @@ const PartnerContent = () => {
                                 <div className="space-y-4">
                                     <p className="text-xs font-black uppercase tracking-widest text-gray-400">Contact Details</p>
                                     <div className="space-y-4">
-                                        <a href="tel:+971509162488" className="flex items-center gap-4 text-[#001F3F] font-bold group">
-                                            <FaPhoneAlt className="text-[#14C8D4]" />
+                                        <a href="tel:+971509162488" className="flex items-center gap-4 text-[#5E6470] font-bold group">
+                                            <FaPhoneAlt className="text-[#1DB5A5]" />
                                             +971 50 916 2488
                                         </a>
-                                        <a href="mailto:sales@lovosis.com" className="flex items-center gap-4 text-[#001F3F] font-bold group">
-                                            <FaEnvelope className="text-[#14C8D4]" />
+                                        <a href="mailto:sales@lovosis.com" className="flex items-center gap-4 text-[#5E6470] font-bold group">
+                                            <FaEnvelope className="text-[#1DB5A5]" />
                                             sales@lovosis.com
                                         </a>
-                                        <a href="https://lovosis.com/" target="_blank" className="flex items-center gap-4 text-[#001F3F] font-bold group">
-                                            <FaGlobe className="text-[#14C8D4]" />
+                                        <a href="https://lovosis.com/" target="_blank" className="flex items-center gap-4 text-[#5E6470] font-bold group">
+                                            <FaGlobe className="text-[#1DB5A5]" />
                                             lovosis.com
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div className="hidden md:flex bg-gray-50 rounded-[3rem] p-10 border border-dashed border-gray-200 flex-col justify-center gap-6">
-                                <p className="text-[#14C8D4] font-black uppercase tracking-[0.3em] text-[10px]">Credentials</p>
+                                <p className="text-[#1DB5A5] font-black uppercase tracking-[0.3em] text-[10px]">Credentials</p>
                                 <ul className="space-y-4">
                                     {[
                                         "Authorized Distributor",
@@ -109,8 +109,8 @@ const PartnerContent = () => {
                                         "Premium Support",
                                         "24/7 Logistics"
                                     ].map((item) => (
-                                        <li key={item} className="flex items-center gap-3 text-[#001F3F] font-bold text-sm">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#14C8D4]"></div>
+                                        <li key={item} className="flex items-center gap-3 text-[#5E6470] font-bold text-sm">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-[#1DB5A5]"></div>
                                             {item}
                                         </li>
                                     ))}
@@ -130,8 +130,8 @@ const PartnerContent = () => {
                                     className="object-contain p-8 group-hover:scale-110 transition-transform duration-500"
                                 />
                             </div>
-                            <h2 className="text-3xl font-black text-[#001F3F] mb-2">Spottive Technologies</h2>
-                            <span className="text-[#14C8D4] font-black uppercase tracking-[0.3em] text-[10px]">Smart Solutions Partner</span>
+                            <h2 className="text-3xl font-black text-[#5E6470] mb-2">Spottive Technologies</h2>
+                            <span className="text-[#1DB5A5] font-black uppercase tracking-[0.3em] text-[10px]">Smart Solutions Partner</span>
                         </div>
                         <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div className="space-y-8 text-right lg:text-left">
@@ -144,23 +144,23 @@ const PartnerContent = () => {
                                 <div className="space-y-4">
                                     <p className="text-xs font-black uppercase tracking-widest text-gray-400">Contact Details</p>
                                     <div className="space-y-4 flex flex-col items-end lg:items-start">
-                                        <a href="tel:+971552341712" className="flex items-center gap-4 text-[#001F3F] font-bold group">
-                                            <FaPhoneAlt className="text-[#14C8D4]" />
+                                        <a href="tel:+971552341712" className="flex items-center gap-4 text-[#5E6470] font-bold group">
+                                            <FaPhoneAlt className="text-[#1DB5A5]" />
                                             +971 55 234 1712
                                         </a>
-                                        <a href="mailto:sales@spottive.com" className="flex items-center gap-4 text-[#001F3F] font-bold group">
-                                            <FaEnvelope className="text-[#14C8D4]" />
+                                        <a href="mailto:sales@spottive.com" className="flex items-center gap-4 text-[#5E6470] font-bold group">
+                                            <FaEnvelope className="text-[#1DB5A5]" />
                                             sales@spottive.com
                                         </a>
-                                        <a href="https://spottive.com/" target="_blank" className="flex items-center gap-4 text-[#001F3F] font-bold group">
-                                            <FaGlobe className="text-[#14C8D4]" />
+                                        <a href="https://spottive.com/" target="_blank" className="flex items-center gap-4 text-[#5E6470] font-bold group">
+                                            <FaGlobe className="text-[#1DB5A5]" />
                                             spottive.com
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div className="hidden md:flex bg-gray-50 rounded-[3rem] p-10 border border-dashed border-gray-200 flex-col justify-center gap-6">
-                                <p className="text-[#14C8D4] font-black uppercase tracking-[0.3em] text-[10px]">Expertise</p>
+                                <p className="text-[#1DB5A5] font-black uppercase tracking-[0.3em] text-[10px]">Expertise</p>
                                 <ul className="space-y-4">
                                     {[
                                         "Digital Innovation",
@@ -168,8 +168,8 @@ const PartnerContent = () => {
                                         "Strategic Consulting",
                                         "Smart Integration"
                                     ].map((item) => (
-                                        <li key={item} className="flex items-center gap-3 text-[#001F3F] font-bold text-sm">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#14C8D4]"></div>
+                                        <li key={item} className="flex items-center gap-3 text-[#5E6470] font-bold text-sm">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-[#1DB5A5]"></div>
                                             {item}
                                         </li>
                                     ))}
@@ -183,19 +183,19 @@ const PartnerContent = () => {
             {/* CTA Section */}
             <section className="py-32 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
                 <div className="max-w-7xl mx-auto">
-                    <div className="relative rounded-[4rem] overflow-hidden bg-[#001F3F] py-24 px-12 md:px-24 text-center shadow-2xl">
-                        <div className="absolute top-0 left-0 w-96 h-96 bg-[#14C8D4]/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="relative rounded-[4rem] overflow-hidden bg-[#5E6470] py-24 px-12 md:px-24 text-center shadow-2xl">
+                        <div className="absolute top-0 left-0 w-96 h-96 bg-[#1DB5A5]/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
                         
                         <div className="relative z-10 max-w-3xl mx-auto">
                             <h2 className="text-5xl md:text-7xl font-black text-white mb-10 leading-[0.9] tracking-tighter uppercase">
-                                Interested in <br/> <span className="text-[#14C8D4]">Partnership?</span>
+                                Interested in <br/> <span className="text-[#1DB5A5]">Partnership?</span>
                             </h2>
                             <p className="text-gray-400 text-xl font-medium leading-relaxed mb-16">
                                 Ready to join our partner network? Contact us today to learn more about partnership opportunities and how we can help grow your business together.
                             </p>
                             <a 
                                 href="/contact"
-                                className="inline-flex items-center gap-6 bg-[#14C8D4] hover:bg-white text-[#001F3F] px-14 py-7 rounded-[2rem] font-black text-2xl transition-all duration-500 shadow-xl group"
+                                className="inline-flex items-center gap-6 bg-[#1DB5A5] hover:bg-white text-[#5E6470] px-14 py-7 rounded-[2rem] font-black text-2xl transition-all duration-500 shadow-xl group"
                             >
                                 Contact Partnership Team
                                 <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
