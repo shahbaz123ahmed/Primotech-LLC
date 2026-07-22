@@ -86,12 +86,12 @@ const TipsClient = () => {
                                 className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 transition-all duration-300"
                             >
                                 {/* Image Container */}
-                                <div className="relative aspect-[16/10] overflow-hidden">
+                                <div className="relative aspect-[16/10] overflow-hidden bg-[#001F3F]">
                                     <Image
                                         src={article.image}
                                         alt={article.title}
                                         fill
-                                        className="object-cover transition-transform duration-700"
+                                        className="object-contain transition-transform duration-700"
                                     />
                                     <div className="absolute top-6 left-6">
                                         <span className="bg-[#1DB5A5] text-[#5E6470] px-4 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shadow-lg">
