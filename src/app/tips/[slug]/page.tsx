@@ -79,12 +79,12 @@ const TipDetail = () => {
 
             {/* Main Image */}
             <section className="px-6 md:px-12 lg:px-24 -mt-10 mb-20">
-                <div className="max-w-5xl mx-auto relative h-[400px] md:h-[600px] rounded-[3.5rem] overflow-hidden shadow-2xl">
+                <div className="max-w-5xl mx-auto relative h-[400px] md:h-[600px] rounded-[3.5rem] overflow-hidden shadow-2xl bg-[#001F3F]">
                     <Image 
                         src={article.image} 
                         alt={article.title} 
                         fill
-                        className="object-cover"
+                        className="object-contain"
                     />
                 </div>
             </section>
