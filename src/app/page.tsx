@@ -11,7 +11,7 @@ import { getLatestProducts } from '@/lib/catalog';
 
 export const metadata: Metadata = {
   title: "PrimoTech LLC | #1 CCTV & Security Camera Supplier in Dubai, UAE",
-  description: "PrimoTech LLC — Dubai's authorized Uniarch CCTV dealer. Shop IP cameras, NVR systems, Panda P Series wireless kits, dual light cameras & security accessories. Located at Satellite Market, Deira, Dubai. Call +971 52 879 6664.",
+  description: "PrimoTech LLC — Dubai's authorized Uniarch CCTV dealer. Shop IP cameras, NVR systems, Panda P Series wireless kits, dual light cameras & security accessories. Located at Satellite Market, Deira, Dubai. Call +97150 685 8414.",
   alternates: { canonical: "/" },
   keywords: [
     "PrimoTech LLC", "CCTV supplier Dubai", "Uniarch authorized dealer", "security cameras UAE",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "PrimoTech LLC | CCTV & Security Camera Supplier Dubai",
-    description: "Dubai's #1 authorized Uniarch supplier. IP cameras, NVRs, wireless CCTV kits. Serving UAE, GCC & Middle East. Call +971 52 879 6664.",
+    description: "Dubai's #1 authorized Uniarch supplier. IP cameras, NVRs, wireless CCTV kits. Serving UAE, GCC & Middle East. Call +97150 685 8414.",
     url: "https://primotech-llc.com",
     images: [{ url: "https://primotech-llc.com/og-image.png", width: 1200, height: 630, alt: "PrimoTech LLC - CCTV & Security Solutions Dubai" }]
   }
@@ -73,7 +73,7 @@ export default function Home() {
         "name": "Does PrimoTech LLC provide CCTV installation services in Dubai?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "PrimoTech LLC provides expert CCTV consultation, system design, and technical support to help you choose the right security system. For installation services, contact our team at +971 52 879 6664 or sales@primotech-llc.com for a customized solution."
+          "text": "PrimoTech LLC provides expert CCTV consultation, system design, and technical support to help you choose the right security system. For installation services, contact our team at +97150 685 8414 or sales@primotech-llc.com for a customized solution."
         }
       },
       {

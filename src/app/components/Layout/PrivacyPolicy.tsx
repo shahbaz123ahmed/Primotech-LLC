@@ -322,7 +322,7 @@ export default function PrivacyPolicy() {
                                     </div>
                                     <div>
                                         <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Phone</p>
-                                        <p className="text-[#5E6470] font-bold text-sm">+971 52 879 6664</p>
+                                        <p className="text-[#5E6470] font-bold text-sm">+97150 685 8414</p>
                                     </div>
                                 </a>
                             </div>

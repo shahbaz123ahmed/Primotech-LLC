@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     default: "PrimoTech LLC | #1 CCTV & Security Camera Supplier in Dubai, UAE",
     template: "%s | PrimoTech LLC"
   },
-  description: "PrimoTech LLC is Dubai's leading authorized supplier of Uniarch CCTV cameras, NVR systems, wireless surveillance kits, and advanced security solutions. Serving UAE, Middle East & GCC. Call +971 52 879 6664.",
+  description: "PrimoTech LLC is Dubai's leading authorized supplier of Uniarch CCTV cameras, NVR systems, wireless surveillance kits, and advanced security solutions. Serving UAE, Middle East & GCC. Call +97150 685 8414.",
   keywords: [
     // Brand & Identity
     "PrimoTech LLC", "PrimoTech Dubai", "PrimoTech security cameras", "PrimoTech UAE", "PrimoTech surveillance",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "PrimoTech LLC | CCTV & Security Solutions Dubai UAE",
-    description: "Dubai's #1 authorized Uniarch CCTV supplier. Shop IP cameras, NVRs, wireless surveillance kits. Call +971 52 879 6664.",
+    description: "Dubai's #1 authorized Uniarch CCTV supplier. Shop IP cameras, NVRs, wireless surveillance kits. Call +97150 685 8414.",
     images: ["https://primotech-llc.com/og-image.png"]
   },
   robots: {
@@ -215,7 +215,7 @@ export default function RootLayout({
               "openingHoursSpecification": [
                 {
                   "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Saturday"],
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"],
                   "opens": "09:00",
                   "closes": "18:00"
                 },

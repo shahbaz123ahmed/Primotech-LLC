@@ -339,7 +339,7 @@ const Navbar = () => {
                             <svg className="w-2.5 h-2.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
-                            +971 52 879 6664
+                            +97150 685 8414
                         </a>
                     </div>
                 </div>
@@ -418,14 +418,14 @@ const Navbar = () => {
                                                                         key={subIndex}
                                                                         onMouseEnter={() => setActiveProductCategorySlug(subItem.slug)}
                                                                         className={`w-full flex items-center justify-between p-3 rounded-[1.25rem] text-left transition-all duration-300 relative group/btn ${isActive
-                                                                                ? 'bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] ring-1 ring-gray-100 z-10'
-                                                                                : 'hover:bg-white/60 text-gray-600 hover:text-[#5E6470]'
+                                                                            ? 'bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] ring-1 ring-gray-100 z-10'
+                                                                            : 'hover:bg-white/60 text-gray-600 hover:text-[#5E6470]'
                                                                             }`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
                                                                             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 overflow-hidden bg-[#1DB5A5] text-white ${isActive
-                                                                                    ? 'shadow-lg shadow-[#1DB5A5]/20'
-                                                                                    : 'shadow-sm group-hover/btn:shadow-md'
+                                                                                ? 'shadow-lg shadow-[#1DB5A5]/20'
+                                                                                : 'shadow-sm group-hover/btn:shadow-md'
                                                                                 }`}>
                                                                                 {categoryImage ? (
                                                                                     <img
@@ -447,8 +447,8 @@ const Navbar = () => {
                                                                             </div>
                                                                         </div>
                                                                         <FaChevronRight className={`w-3.5 h-3.5 transition-all duration-300 ${isActive
-                                                                                ? 'text-[#1DB5A5] translate-x-0 opacity-100'
-                                                                                : 'text-gray-300 -translate-x-2 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-0'
+                                                                            ? 'text-[#1DB5A5] translate-x-0 opacity-100'
+                                                                            : 'text-gray-300 -translate-x-2 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-0'
                                                                             }`} />
                                                                     </button>
                                                                 );
@@ -683,7 +683,7 @@ const Navbar = () => {
                                 <div className="space-y-3 text-sm font-medium opacity-90">
                                     <p>United Arab Emirates</p>
                                     <p><a href="mailto:sales@primotech-llc.com" className="hover:underline hover:text-white">sales@primotech-llc.com</a></p>
-                                    <p><a href="tel:+971528796664" className="hover:underline hover:text-white">+971 52 879 6664</a></p>
+                                    <p><a href="tel:+971528796664" className="hover:underline hover:text-white">+97150 685 8414</a></p>
                                     <p>Mon-Fri: 8:30am-5:30pm</p>
                                 </div>
                             </div>

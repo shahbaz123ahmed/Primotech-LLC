@@ -32,7 +32,7 @@ export default function FloatingContact() {
                     style={{ transitionDelay: '50ms' }}
                 >
                     <span className="text-[#5E6470] group-hover/btn:text-white text-[13px] font-bold tracking-wide whitespace-nowrap">
-                        +971 52 879 6664
+                        +97150 685 8414
                     </span>
                     <div className="w-9 h-9 bg-[#5E6470] group-hover/btn:bg-[#1DB5A5] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                         <FaPhoneAlt className="text-white text-sm" />

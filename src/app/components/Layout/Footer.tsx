@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { 
-    FaWhatsapp, FaPhoneAlt, FaRegEnvelope, FaMapMarkerAlt, 
-    FaArrowRight, FaChevronRight, FaCheckCircle 
+import {
+    FaWhatsapp, FaPhoneAlt, FaRegEnvelope, FaMapMarkerAlt,
+    FaArrowRight, FaChevronRight, FaCheckCircle
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -35,14 +35,14 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Main Footer Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-8 mb-24">
-                    
+
                     {/* Column 1: Brand Info (4 cols) */}
                     <div className="lg:col-span-4 space-y-10">
                         <div className="flex items-center">
                             <div className="relative w-48 h-16 bg-gray-50 p-3 rounded-2xl border border-gray-100 group hover:bg-white hover:shadow-xl transition-all duration-500 overflow-hidden">
-                                <Image 
-                                    src="/logo.png" 
-                                    alt="PrimoTech Logo" 
+                                <Image
+                                    src="/logo.png"
+                                    alt="PrimoTech Logo"
                                     fill
                                     sizes="192px"
                                     className="object-contain p-2"
@@ -65,14 +65,14 @@ const Footer = () => {
                                 <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] group-hover:bg-[#5E6470] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
                                     <FaPhoneAlt className="text-xl" />
                                 </div>
-                                <span className="font-bold tracking-wide">+971 52 879 6664</span>
+                                <span className="font-bold tracking-wide">+97150 685 8414</span>
                             </a>
                             <div className="flex items-start gap-5 text-gray-500">
                                 <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] shrink-0 shadow-sm border border-gray-100">
                                     <FaMapMarkerAlt className="text-xl" />
                                 </div>
                                 <span className="font-bold leading-relaxed tracking-wide">
-                                    Shop 23, Musthafa Building,<br/>Satellite Market, Deira, Dubai
+                                    Shop 23, Musthafa Building,<br />Satellite Market, Deira, Dubai
                                 </span>
                             </div>
                         </div>
@@ -86,7 +86,7 @@ const Footer = () => {
                         </h3>
                         <ul className="space-y-6">
                             {[
-                                "Panda P Series", "Dual Light Cameras", "Analog Cameras", 
+                                "Panda P Series", "Dual Light Cameras", "Analog Cameras",
                                 "Network Switches", "Accessories"
                             ].map((item) => (
                                 <li key={item}>
@@ -169,8 +169,8 @@ const Footer = () => {
                                     disabled={isSubmitting}
                                     className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:outline-none focus:border-[#1DB5A5] focus:bg-white transition-all font-bold placeholder:text-gray-400 disabled:opacity-50"
                                 />
-                                <button 
-                                    type="submit" 
+                                <button
+                                    type="submit"
                                     disabled={isSubmitting}
                                     className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#5E6470] rounded-xl flex items-center justify-center text-white hover:bg-[#1DB5A5] hover:text-[#5E6470] transition-all shadow-xl group-hover:scale-105 disabled:opacity-50"
                                 >
