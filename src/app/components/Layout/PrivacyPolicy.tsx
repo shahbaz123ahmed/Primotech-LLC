@@ -59,7 +59,7 @@ export default function PrivacyPolicy() {
                         </p>
                         <p>
                             If you have any questions or feedback regarding this Privacy Policy or your personal data, please contact us at{' '}
-                            <a href="mailto:sales@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">sales@primotech-llc.com</a>.
+                            <a href="mailto:Sales1@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">Sales1@primotech-llc.com</a>.
                         </p>
                     </div>
                 </div>
@@ -232,7 +232,7 @@ export default function PrivacyPolicy() {
                     <section id="section-VI">
                         <SectionTitle num="VI" title="Your Rights" />
                         <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
-                            <p>As of July 2, 2025, you may access and update your personal information through your account or by contacting <a href="mailto:sales@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">sales@primotech-llc.com</a>. Subject to applicable law, you have the right to:</p>
+                            <p>As of July 2, 2025, you may access and update your personal information through your account or by contacting <a href="mailto:Sales1@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">Sales1@primotech-llc.com</a>. Subject to applicable law, you have the right to:</p>
                             <ul className="space-y-2 pl-2">
                                 {[
                                     'Access or correct your personal data',
@@ -301,9 +301,9 @@ export default function PrivacyPolicy() {
                     <section id="section-XI">
                         <SectionTitle num="XI" title="Contact Us" />
                         <div className="space-y-4 text-gray-600 leading-relaxed font-medium">
-                            <p>For any questions or comments about this Privacy Policy or your personal data, contact us at <a href="mailto:sales@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">sales@primotech-llc.com</a>. We will respond within <strong className="text-[#5E6470]">15 business days</strong> after verifying your identity.</p>
+                            <p>For any questions or comments about this Privacy Policy or your personal data, contact us at <a href="mailto:Sales1@primotech-llc.com" className="text-[#1DB5A5] hover:underline font-bold">Sales1@primotech-llc.com</a>. We will respond within <strong className="text-[#5E6470]">15 business days</strong> after verifying your identity.</p>
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <a href="mailto:sales@primotech-llc.com" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#1DB5A5] transition-colors group">
+                                <a href="mailto:Sales1@primotech-llc.com" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#1DB5A5] transition-colors group">
                                     <div className="w-11 h-11 bg-[#5E6470] rounded-xl flex items-center justify-center flex-shrink-0">
                                         <svg className="w-5 h-5 text-[#1DB5A5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -311,7 +311,7 @@ export default function PrivacyPolicy() {
                                     </div>
                                     <div>
                                         <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Email</p>
-                                        <p className="text-[#5E6470] font-bold text-sm">sales@primotech-llc.com</p>
+                                        <p className="text-[#5E6470] font-bold text-sm">Sales1@primotech-llc.com</p>
                                     </div>
                                 </a>
                                 <a href="tel:+971528796664" className="flex items-center gap-4 p-5 bg-[#f8fafc] rounded-2xl border border-gray-100 hover:border-[#1DB5A5] transition-colors group">

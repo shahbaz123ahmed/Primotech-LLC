@@ -124,7 +124,7 @@ export default function RootLayout({
               },
               "image": "https://primotech-llc.com/og-image.png",
               "description": "PrimoTech LLC is Dubai's authorized supplier of Uniarch CCTV cameras, NVR systems, IP cameras, and advanced security surveillance solutions serving UAE and the Middle East.",
-              "email": "sales@primotech-llc.com",
+              "email": "Sales1@primotech-llc.com",
               "telephone": "+971-52-879-6664",
               "priceRange": "$$",
               "currenciesAccepted": "AED",
@@ -147,7 +147,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "ContactPoint",
-                  "email": "sales@primotech-llc.com",
+                  "email": "Sales1@primotech-llc.com",
                   "contactType": "customer support",
                   "areaServed": "AE",
                   "availableLanguage": "en"
@@ -197,7 +197,7 @@ export default function RootLayout({
               "image": "https://primotech-llc.com/og-image.png",
               "url": "https://primotech-llc.com",
               "telephone": "+971-52-879-6664",
-              "email": "sales@primotech-llc.com",
+              "email": "Sales1@primotech-llc.com",
               "description": "Authorized Uniarch CCTV camera dealer and security solutions supplier based in Deira, Dubai. Providing IP cameras, NVR systems, wireless surveillance kits, and complete security installations across UAE and the Middle East.",
               "address": {
                 "@type": "PostalAddress",

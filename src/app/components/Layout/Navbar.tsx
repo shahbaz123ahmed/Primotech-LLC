@@ -327,11 +327,11 @@ const Navbar = () => {
                 {/* Right Side: Contact Info */}
                 <div className="bg-[#1DB5A5] flex items-center px-6 md:px-8 relative shrink-0 z-20 h-full ml-[-12px] [clip-path:polygon(12px_0,100%_0,100%_100%,0%_100%)]">
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-6 relative z-20 whitespace-nowrap pl-2">
-                        <a href="mailto:sales@primotech-llc.com" className="flex text-white text-[8px] md:text-[13px] font-bold hover:text-white/80 transition-colors duration-200 items-center gap-1 md:gap-2 leading-none md:leading-normal">
+                        <a href="mailto:Sales1@primotech-llc.com" className="flex text-white text-[8px] md:text-[13px] font-bold hover:text-white/80 transition-colors duration-200 items-center gap-1 md:gap-2 leading-none md:leading-normal">
                             <svg className="w-2.5 h-2.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            sales@primotech-llc.com
+                            Sales1@primotech-llc.com
                         </a>
                         <span className="hidden lg:block text-white/30 font-bold">|</span>
 
@@ -682,7 +682,7 @@ const Navbar = () => {
                                 <h3 className="text-xl font-bold mb-4">Contact Us</h3>
                                 <div className="space-y-3 text-sm font-medium opacity-90">
                                     <p>United Arab Emirates</p>
-                                    <p><a href="mailto:sales@primotech-llc.com" className="hover:underline hover:text-white">sales@primotech-llc.com</a></p>
+                                    <p><a href="mailto: Sales1@primotech-llc.com" className="hover:underline hover:text-white">Sales1@primotech-llc.com</a></p>
                                     <p><a href="tel:+971528796664" className="hover:underline hover:text-white">+97150 685 8414</a></p>
                                     <p>Mon-Fri: 8:30am-5:30pm</p>
                                 </div>

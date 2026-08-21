@@ -73,7 +73,7 @@ export default function Home() {
         "name": "Does PrimoTech LLC provide CCTV installation services in Dubai?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "PrimoTech LLC provides expert CCTV consultation, system design, and technical support to help you choose the right security system. For installation services, contact our team at +97150 685 8414 or sales@primotech-llc.com for a customized solution."
+          "text": "PrimoTech LLC provides expert CCTV consultation, system design, and technical support to help you choose the right security system. For installation services, contact our team at +97150 685 8414 or Sales1@primotech-llc.com for a customized solution."
         }
       },
       {
@@ -89,7 +89,7 @@ export default function Home() {
         "name": "What warranty do PrimoTech LLC security cameras come with?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "PrimoTech LLC products come with standard industrial-grade warranties. Most Uniarch cameras and NVR systems include a 2-3 year manufacturer warranty. Extended warranty plans are available. Contact us at sales@primotech-llc.com for warranty details."
+          "text": "PrimoTech LLC products come with standard industrial-grade warranties. Most Uniarch cameras and NVR systems include a 2-3 year manufacturer warranty. Extended warranty plans are available. Contact us at Sales1@primotech-llc.com for warranty details."
         }
       },
       {

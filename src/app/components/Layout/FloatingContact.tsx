@@ -13,12 +13,12 @@ export default function FloatingContact() {
 
                 {/* Email */}
                 <a
-                    href="mailto:sales@primotech-llc.com"
+                    href="mailto:Sales1@primotech-llc.com"
                     className="flex items-center gap-3 bg-white border border-gray-100 shadow-xl rounded-2xl px-5 py-3 hover:bg-[#5E6470] hover:border-[#5E6470] transition-all duration-300 group/btn"
                     style={{ transitionDelay: '100ms' }}
                 >
                     <span className="text-[#5E6470] group-hover/btn:text-white text-[13px] font-bold tracking-wide whitespace-nowrap">
-                        sales@primotech-llc.com
+                        Sales1@primotech-llc.com
                     </span>
                     <div className="w-9 h-9 bg-[#5E6470] group-hover/btn:bg-[#1DB5A5] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                         <FaRegEnvelope className="text-white text-sm" />

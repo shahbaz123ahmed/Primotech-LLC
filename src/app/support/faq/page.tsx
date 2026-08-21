@@ -73,7 +73,7 @@ export default function FAQPage() {
                 "name": "What warranty does PrimoTech LLC offer on Uniarch products?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "PrimoTech LLC offers a 3-year limited warranty covering hardware defects and technical support on most Uniarch products. Extended warranty plans are available. Contact sales@primotech-llc.com for warranty registration."
+                    "text": "PrimoTech LLC offers a 3-year limited warranty covering hardware defects and technical support on most Uniarch products. Extended warranty plans are available. Contact Sales1@primotech-llc.com for warranty registration."
                 }
             },
             {

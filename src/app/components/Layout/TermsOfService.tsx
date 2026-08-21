@@ -94,7 +94,7 @@ export default function TermsOfService() {
                 'For any questions or concerns regarding these Terms of Service, please reach out to us:',
                 '<strong>PrimoTech LLC</strong>',
                 'Shop 23, Musthafa Building, Satellite Market, Deira, Dubai, UAE',
-                'Email: <a href="mailto:sales@primotech-llc.com" class="text-[#1DB5A5] hover:underline">sales@primotech-llc.com</a>',
+                'Email: <a href="mailto:Sales1@primotech-llc.com" class="text-[#1DB5A5] hover:underline">Sales1@primotech-llc.com</a>',
                 'Phone: <a href="tel:+971528796664" class="text-[#1DB5A5] hover:underline">+97150 685 8414</a>',
             ],
         },

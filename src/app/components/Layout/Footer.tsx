@@ -55,11 +55,11 @@ const Footer = () => {
                         </p>
 
                         <div className="space-y-6">
-                            <a href="mailto:sales@primotech-llc.com" className="flex items-center gap-5 text-gray-500 hover:text-[#1DB5A5] transition-all group">
+                            <a href="mailto:Sales1@primotech-llc.com" className="flex items-center gap-5 text-gray-500 hover:text-[#1DB5A5] transition-all group">
                                 <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] group-hover:bg-[#5E6470] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
                                     <FaRegEnvelope className="text-xl" />
                                 </div>
-                                <span className="font-bold tracking-wide">sales@primotech-llc.com</span>
+                                <span className="font-bold tracking-wide">Sales1@primotech-llc.com</span>
                             </a>
                             <a href="tel:+971528796664" className="flex items-center gap-5 text-gray-500 hover:text-[#1DB5A5] transition-all group">
                                 <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#5E6470] group-hover:bg-[#5E6470] group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">

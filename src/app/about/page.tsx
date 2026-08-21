@@ -55,7 +55,7 @@ const AboutPage = () => {
                     "@type": "ImageObject",
                     "url": "https://primotech-llc.com/logo.png"
                 },
-                "email": "sales@primotech-llc.com",
+                "email": "Sales1@primotech-llc.com",
                 "telephone": "+971-52-879-6664",
                 "foundingDate": "2020",
                 "areaServed": [
@@ -76,7 +76,7 @@ const AboutPage = () => {
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "telephone": "+971-52-879-6664",
-                    "email": "sales@primotech-llc.com",
+                    "email": "Sales1@primotech-llc.com",
                     "contactType": "customer service",
                     "areaServed": ["AE", "SA", "QA", "KW", "BH", "OM"],
                     "availableLanguage": ["en", "ar"]
