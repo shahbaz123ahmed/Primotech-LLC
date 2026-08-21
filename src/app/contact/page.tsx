@@ -38,8 +38,8 @@ export default function ContactPage() {
             "@type": "LocalBusiness",
             "name": "PrimoTech LLC",
             "image": "https://primotech-llc.com/logo.png",
-            "telephone": "+971-52-879-6664",
-            "email": "sales@primotech-llc.com",
+            "telephone": "+97150 685 8414",
+            "email": "Sales1@primotech-llc.com",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Shop 23, Musthafa Building, Satellite Market, Deira",
